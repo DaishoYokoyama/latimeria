@@ -7,7 +7,7 @@ interface Props {}
 
 <header
   id="site-header"
-  class="fixed top-0 left-0 w-full z-50 transition-all duration-300 data-[scrolled]:bg-deep/80 data-[scrolled]:backdrop-blur-md data-[scrolled]:border-b data-[scrolled]:border-subtle"
+  class="fixed top-0 left-0 w-full z-50 transition-[background-color,backdrop-filter] duration-300 data-[scrolled]:bg-deep/80 data-[scrolled]:backdrop-blur-md"
   data-header
 >
   <nav
@@ -16,7 +16,7 @@ interface Props {}
   >
     <a
       href="/"
-      class="shrink-0 md:opacity-0 md:pointer-events-none transition-opacity duration-300 data-[visible]:opacity-100 data-[visible]:pointer-events-auto"
+      class="shrink-0 opacity-0 pointer-events-none transition-opacity duration-300 data-[visible]:opacity-100 data-[visible]:pointer-events-auto"
       data-header-logo
     >
       <Image
@@ -26,7 +26,7 @@ interface Props {}
       />
     </a>
 
-    <ul class="hidden md:flex md:gap-6 lg:gap-8" role="list">
+    <ul class="hidden lg:flex lg:gap-8" role="list">
       <li>
         <a
           href="#works"
@@ -49,7 +49,7 @@ interface Props {}
 
     <button
       type="button"
-      class="md:hidden p-2 text-body hover:text-link-hover transition-colors"
+      class="lg:hidden p-2 text-body hover:text-link-hover transition-colors"
       aria-expanded="false"
       aria-controls="mobile-menu"
       aria-label="メニューを開く"
@@ -75,7 +75,7 @@ interface Props {}
 
   <div
     id="mobile-menu"
-    class="md:hidden border-t border-subtle bg-deep/80 backdrop-blur-md overflow-hidden max-h-0 opacity-0 transition-all duration-300 ease-in-out"
+    class="lg:hidden border-t border-subtle bg-deep/80 backdrop-blur-md overflow-hidden max-h-0 opacity-0 transition-all duration-300 ease-in-out"
     data-mobile-menu
   >
     <ul class="flex flex-col px-4 py-2" role="list">
