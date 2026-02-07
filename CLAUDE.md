@@ -15,7 +15,8 @@ Astro 5 + Tailwind CSS v4 で構築する日本語ホームページ。
 - Use semantic HTML elements (`<nav>`, `<main>`, `<section>`, etc.)
 - Define Props types with TypeScript interfaces for all components
 - Follow mobile-first responsive design (`md:`, `lg:`)
-- Write commit messages in English, imperative mood, 50 chars max
+- Follow Conventional Commits format: `<type>(<scope>): <subject>` (see [Git Rules](docs/git-rules.md))
+- Write commit subjects in English, imperative mood, lowercase, header max 100 chars
 
 ## DO NOT
 
