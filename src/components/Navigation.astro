@@ -22,11 +22,11 @@ interface Props {}
       <Image
         src={logo}
         alt="Latimeria ホーム"
-        class="h-8 w-auto md:h-10"
+        class="h-10 w-auto md:h-12"
       />
     </a>
 
-    <ul class="hidden lg:flex lg:gap-8" role="list">
+    <ul class="hidden md:flex md:gap-6 lg:gap-8" role="list">
       <li>
         <a
           href="#works"
@@ -49,7 +49,7 @@ interface Props {}
 
     <button
       type="button"
-      class="lg:hidden p-2 text-body hover:text-link-hover transition-colors"
+      class="md:hidden p-2 text-body hover:text-link-hover transition-colors"
       aria-expanded="false"
       aria-controls="mobile-menu"
       aria-label="メニューを開く"
@@ -75,7 +75,7 @@ interface Props {}
 
   <div
     id="mobile-menu"
-    class="lg:hidden border-t border-subtle bg-deep/80 backdrop-blur-md overflow-hidden max-h-0 opacity-0 transition-all duration-300 ease-in-out"
+    class="md:hidden border-t border-subtle bg-deep/80 backdrop-blur-md overflow-hidden max-h-0 opacity-0 transition-all duration-300 ease-in-out"
     data-mobile-menu
   >
     <ul class="flex flex-col px-4 py-2" role="list">
