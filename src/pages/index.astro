@@ -2,11 +2,15 @@
 import Hero from '../components/Hero.astro';
 import Layout from '../layouts/Layout.astro';
 import Navigation from '../components/Navigation.astro';
+import DummySection from '../components/DummySection.astro';
 ---
 
 <Layout>
   <Navigation />
   <main id="main-content">
     <Hero />
+    <DummySection id="works" title="Works" />
+    <DummySection id="news" title="News" alt />
+    <DummySection id="contact" title="Contact" />
   </main>
 </Layout>

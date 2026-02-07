@@ -7,14 +7,18 @@ interface Props {}
 
 <header
   id="site-header"
-  class="fixed top-0 left-0 w-full z-50 transition-colors duration-300 data-[scrolled]:bg-deep/95 data-[scrolled]:backdrop-blur-sm data-[scrolled]:border-b data-[scrolled]:border-subtle"
+  class="fixed top-0 left-0 w-full z-50 transition-all duration-300 data-[scrolled]:bg-deep/80 data-[scrolled]:backdrop-blur-md data-[scrolled]:border-b data-[scrolled]:border-subtle"
   data-header
 >
   <nav
     aria-label="メインナビゲーション"
     class="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 lg:px-8"
   >
-    <a href="/" class="shrink-0">
+    <a
+      href="/"
+      class="shrink-0 md:opacity-0 md:pointer-events-none transition-opacity duration-300 data-[visible]:opacity-100 data-[visible]:pointer-events-auto"
+      data-header-logo
+    >
       <Image
         src={logo}
         alt="Latimeria ホーム"
@@ -25,39 +29,27 @@ interface Props {}
     <ul class="hidden md:flex md:gap-6 lg:gap-8" role="list">
       <li>
         <a
-          href="#about"
-          class="text-sm lg:text-base text-body-secondary hover:text-link-hover transition-colors"
-        >概要</a>
-      </li>
-      <li>
-        <a
-          href="#services"
-          class="text-sm lg:text-base text-body-secondary hover:text-link-hover transition-colors"
-        >サービス</a>
-      </li>
-      <li>
-        <a
           href="#works"
-          class="text-sm lg:text-base text-body-secondary hover:text-link-hover transition-colors"
-        >実績</a>
+          class="text-sm lg:text-base text-body hover:text-link-hover transition-colors"
+        >Works</a>
       </li>
       <li>
         <a
           href="#news"
-          class="text-sm lg:text-base text-body-secondary hover:text-link-hover transition-colors"
-        >お知らせ</a>
+          class="text-sm lg:text-base text-body hover:text-link-hover transition-colors"
+        >News</a>
       </li>
       <li>
         <a
           href="#contact"
-          class="text-sm lg:text-base text-body-secondary hover:text-link-hover transition-colors"
-        >お問い合わせ</a>
+          class="text-sm lg:text-base text-body hover:text-link-hover transition-colors"
+        >Contact</a>
       </li>
     </ul>
 
     <button
       type="button"
-      class="md:hidden p-2 text-body-secondary hover:text-link-hover transition-colors"
+      class="md:hidden p-2 text-body hover:text-link-hover transition-colors"
       aria-expanded="false"
       aria-controls="mobile-menu"
       aria-label="メニューを開く"
@@ -71,58 +63,39 @@ interface Props {}
         stroke="currentColor"
         aria-hidden="true"
       >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-          data-hamburger-icon
-        />
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          d="M6 18L18 6M6 6l12 12"
-          class="hidden"
-          data-close-icon
-        />
+        <g data-hamburger-icon class="transition-opacity duration-300">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+        </g>
+        <g data-close-icon class="opacity-0 transition-opacity duration-300">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </g>
       </svg>
     </button>
   </nav>
 
   <div
     id="mobile-menu"
-    class="hidden md:hidden border-t border-subtle bg-deep/95 backdrop-blur-sm"
+    class="md:hidden border-t border-subtle bg-deep/80 backdrop-blur-md overflow-hidden max-h-0 opacity-0 transition-all duration-300 ease-in-out"
     data-mobile-menu
   >
     <ul class="flex flex-col px-4 py-2" role="list">
       <li>
         <a
-          href="#about"
-          class="block py-3 text-body-secondary hover:text-link-hover transition-colors"
-        >概要</a>
-      </li>
-      <li>
-        <a
-          href="#services"
-          class="block py-3 text-body-secondary hover:text-link-hover transition-colors"
-        >サービス</a>
-      </li>
-      <li>
-        <a
           href="#works"
-          class="block py-3 text-body-secondary hover:text-link-hover transition-colors"
-        >実績</a>
+          class="block py-3 text-body hover:text-link-hover transition-colors"
+        >Works</a>
       </li>
       <li>
         <a
           href="#news"
-          class="block py-3 text-body-secondary hover:text-link-hover transition-colors"
-        >お知らせ</a>
+          class="block py-3 text-body hover:text-link-hover transition-colors"
+        >News</a>
       </li>
       <li>
         <a
           href="#contact"
-          class="block py-3 text-body-secondary hover:text-link-hover transition-colors"
-        >お問い合わせ</a>
+          class="block py-3 text-body hover:text-link-hover transition-colors"
+        >Contact</a>
       </li>
     </ul>
   </div>
@@ -131,11 +104,14 @@ interface Props {}
 <script>
   const header = document.querySelector<HTMLElement>('[data-header]');
   const heroSection = document.querySelector<HTMLElement>('#hero');
+  const headerLogo = document.querySelector<HTMLElement>('[data-header-logo]');
 
   if (header && heroSection) {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        header.toggleAttribute('data-scrolled', !entry.isIntersecting);
+        const scrolled = !entry.isIntersecting;
+        header.toggleAttribute('data-scrolled', scrolled);
+        headerLogo?.toggleAttribute('data-visible', scrolled);
       },
       { threshold: 0 }
     );
@@ -144,25 +120,31 @@ interface Props {}
 
   const toggle = document.querySelector<HTMLButtonElement>('[data-menu-toggle]');
   const menu = document.querySelector<HTMLElement>('[data-mobile-menu]');
-  const hamburgerIcon = document.querySelector<SVGPathElement>('[data-hamburger-icon]');
-  const closeIcon = document.querySelector<SVGPathElement>('[data-close-icon]');
+  const hamburgerIcon = document.querySelector<SVGGElement>('[data-hamburger-icon]');
+  const closeIcon = document.querySelector<SVGGElement>('[data-close-icon]');
 
   function openMenu() {
     if (!toggle || !menu || !hamburgerIcon || !closeIcon) return;
     toggle.setAttribute('aria-expanded', 'true');
     toggle.setAttribute('aria-label', 'メニューを閉じる');
-    menu.classList.remove('hidden');
-    hamburgerIcon.classList.add('hidden');
-    closeIcon.classList.remove('hidden');
+    menu.classList.remove('max-h-0', 'opacity-0');
+    menu.classList.add('max-h-60', 'opacity-100');
+    hamburgerIcon.classList.add('opacity-0');
+    hamburgerIcon.classList.remove('opacity-100');
+    closeIcon.classList.remove('opacity-0');
+    closeIcon.classList.add('opacity-100');
   }
 
   function closeMenu() {
     if (!toggle || !menu || !hamburgerIcon || !closeIcon) return;
     toggle.setAttribute('aria-expanded', 'false');
     toggle.setAttribute('aria-label', 'メニューを開く');
-    menu.classList.add('hidden');
-    hamburgerIcon.classList.remove('hidden');
-    closeIcon.classList.add('hidden');
+    menu.classList.add('max-h-0', 'opacity-0');
+    menu.classList.remove('max-h-60', 'opacity-100');
+    hamburgerIcon.classList.remove('opacity-0');
+    hamburgerIcon.classList.add('opacity-100');
+    closeIcon.classList.add('opacity-0');
+    closeIcon.classList.remove('opacity-100');
   }
 
   toggle?.addEventListener('click', () => {
