@@ -98,12 +98,67 @@ To enable light mode, add a `:root.light` block in `global.css` that overrides t
 
 ## Typography
 
-> TBD — Japanese font selection required.
+### Typography Scale
 
-Considerations:
-- Primary font for body text (Japanese + Latin)
-- Heading font (if different from body)
-- Font loading strategy (e.g., Google Fonts, self-hosted)
+Font family is TBD. The scale below defines size, weight, line-height, and letter-spacing tokens.
+
+| Token | Size | Weight | Line-height | Letter-spacing | Usage |
+|---|---|---|---|---|---|
+| `heading-1` | 24px → 36px (md) | 700 (bold) | 1.2 | -0.02em (tight) | Page title (h1) |
+| `heading-2` | 20px → 24px (md) | 700 (bold) | 1.3 | -0.01em (snug) | Section heading (h2) |
+| `heading-3` | 18px → 20px (md) | 600 (semibold) | 1.4 | 0 | Sub-section heading (h3) |
+| `heading-4` | 16px | 600 (semibold) | 1.5 | 0 | Card heading, small heading (h4) |
+| `body-large` | 16px | 400 (normal) | 1.75 | 0 | Lead paragraph, emphasized body |
+| `body-std` | 14px | 400 (normal) | 1.75 | 0 | Default body text |
+| `caption` | 12px | 400 (normal) | 1.5 | 0.01em (wide) | Captions, supplementary text |
+| `label` | 12px | 600 (semibold) | 1.5 | 0.02em (wider) | Form labels, tags, badges |
+| `fine` | 10px | 600 (semibold) | 1.4 | 0.02em (wider) | Fine print (limited use) |
+
+### Usage in Tailwind Classes
+
+Custom font-size tokens are defined in `@theme` inside `global.css` and generate utility classes:
+
+| Tailwind class | Size | Notes |
+|---|---|---|
+| `text-heading-1` | 24px | Use with `md:text-4xl` for responsive |
+| `text-heading-2` | 20px | Use with `md:text-2xl` for responsive |
+| `text-heading-3` | 18px | Use with `md:text-xl` for responsive |
+| `text-heading-4` | 16px | No responsive scaling needed |
+| `text-body-large` | 16px | Lead paragraphs |
+| `text-body-std` | 14px | Default body (set on `<body>`) |
+| `text-caption` | 12px | Dates, secondary info |
+| `text-label` | 12px | Form labels (pair with `font-semibold`) |
+| `text-fine` | 10px | Use sparingly; minimum readable size |
+
+### Responsive Heading Pattern
+
+Headings use mobile-first custom tokens, scaling up with Tailwind built-in classes at `md:` breakpoint:
+
+```html
+<h1 class="text-heading-1 md:text-4xl font-bold tracking-tight text-heading">...</h1>
+<h2 class="text-heading-2 md:text-2xl font-bold tracking-snug text-heading">...</h2>
+<h3 class="text-heading-3 md:text-xl font-semibold text-heading">...</h3>
+```
+
+### Letter Spacing
+
+No custom letter-spacing tokens are defined. Use Tailwind built-in tracking utilities:
+
+| Tailwind class | Value | Usage |
+|---|---|---|
+| `tracking-tight` | -0.05em | h1 headings |
+| `tracking-normal` | 0 | Default |
+| `tracking-wide` | 0.025em | Captions |
+| `tracking-wider` | 0.05em | Labels, fine print |
+
+### Rules
+
+- Default body font size is 14px (`text-body-std`), set on `<body>` element
+- Heading hierarchy must not skip levels (h1 → h2 → h3, no gaps)
+- `text-fine` (10px) should only be used for non-essential decorative text; never for primary content
+- Japanese text should not go below 12px (`text-caption`) for readability of kanji
+- Prefer semantic tokens (`text-heading-2`) over raw Tailwind sizes (`text-xl`) for consistency
+- Weight is NOT baked into font-size tokens; always pair with `font-bold` / `font-semibold` / `font-normal` explicitly
 
 ## Spacing
 
