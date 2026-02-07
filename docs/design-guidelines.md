@@ -118,4 +118,4 @@ Considerations:
 
 ## Lessons Learned
 
-<!-- Add rules discovered through code review and corrections below -->
+- Commit messages must follow Conventional Commits format (`<type>(<scope>): <subject>`). See [Git Rules](git-rules.md) for details.
