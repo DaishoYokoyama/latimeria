@@ -40,6 +40,8 @@
   --font-size-label--line-height: 1.5;
   --font-size-fine: 0.625rem;
   --font-size-fine--line-height: 1.4;
+
+  --tracking-snug: -0.01em;
 }
 
 /* ----- Layer 2: Semantic Tokens ----- */

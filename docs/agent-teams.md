@@ -219,3 +219,6 @@ Orchestrator 自身はコードを直接書かず、サブエージェントに�
 ## Lessons Learned
 
 <!-- Add rules discovered through retrospectives below -->
+- 軽微なリファクタリング（クラス名の一括置換等）では Architect エージェントを省略し、プランが Architect の役割を兼ねてよい。ただし変更対象・変更前後の値を明確にプランに記載すること。
+- Reviewer / Builder が軽微な場合（チェックリストの確認のみ、ビルドコマンド実行のみ）は lead が直接実施してよい。エージェント起動のオーバーヘッドを避ける。
+- Implementer に渡す指示は「ファイルパス + 行番号 + 変更前 → 変更後」の形式が最も正確。曖昧な指示は誤実装の原因になる。

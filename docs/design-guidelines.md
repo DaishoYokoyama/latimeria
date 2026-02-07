@@ -147,6 +147,7 @@ No custom letter-spacing tokens are defined. Use Tailwind built-in tracking util
 | Tailwind class | Value | Usage |
 |---|---|---|
 | `tracking-tight` | -0.05em | h1 headings |
+| `tracking-snug` | -0.01em | h2 headings (custom, defined in `@theme`) |
 | `tracking-normal` | 0 | Default |
 | `tracking-wide` | 0.025em | Captions |
 | `tracking-wider` | 0.05em | Labels, fine print |
@@ -175,3 +176,6 @@ No custom letter-spacing tokens are defined. Use Tailwind built-in tracking util
 
 - Commit messages must follow Conventional Commits format (`<type>(<scope>): <subject>`). See [Git Rules](git-rules.md) for details.
 - Tailwind v4 の `--color-*` トークン名は組み込みユーティリティと衝突しないようにする。`--color-base` は `text-base` (font-size) を上書きするため `--color-canvas` にリネームした。`sm`, `lg`, `xl` なども同様に避けること。
+- Typography Scale 表の letter-spacing 列に書かれた `(snug)` 等の括弧内名称は説明ラベルであり、Tailwind ユーティリティクラス名と一致するとは限らない。`tracking-snug` は Tailwind ビルトインに存在しないため、`global.css` の `@theme` で `--tracking-snug: -0.01em` として定義した。カスタム tracking が必要な場合は必ず `@theme` に追加すること。
+- フォームラベルには `text-label` (12px) ではなく `text-body-std` (14px) + `font-semibold` を使用する。`text-label` はタグ・バッジ等の小さい UI 要素向け。日本語フォームラベルには可読性のため 14px 以上を確保する。
+- セクション h2 の共通パターン: `text-heading-2 font-bold tracking-snug text-heading md:text-2xl`。3 箇所以上で使用。将来的に共通コンポーネント化を検討する候補。
