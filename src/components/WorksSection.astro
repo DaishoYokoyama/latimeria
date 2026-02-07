@@ -1,0 +1,103 @@
+---
+interface Props {}
+
+interface WorkItem {
+  title: string;
+  description: string;
+  imageSrc: string;
+  imageAlt: string;
+}
+
+const works: WorkItem[] = [
+  {
+    title: 'Project Alpha',
+    description: '深海探査プロジェクトのビジュアルデザイン',
+    imageSrc: 'https://placehold.co/1920x1080/0b1628/22d3ee?text=Project+Alpha',
+    imageAlt: 'Project Alpha の作例画像',
+  },
+  {
+    title: 'Project Beta',
+    description: '海洋生物のインタラクティブ図鑑',
+    imageSrc: 'https://placehold.co/1920x1080/101e32/06b6d4?text=Project+Beta',
+    imageAlt: 'Project Beta の作例画像',
+  },
+  {
+    title: 'Project Gamma',
+    description: 'アビスをテーマにしたブランドアイデンティティ',
+    imageSrc: 'https://placehold.co/1920x1080/162d4a/67e8f9?text=Project+Gamma',
+    imageAlt: 'Project Gamma の作例画像',
+  },
+  {
+    title: 'Project Delta',
+    description: '深海の音風景を可視化するウェブ体験',
+    imageSrc: 'https://placehold.co/1920x1080/0b1628/0891b2?text=Project+Delta',
+    imageAlt: 'Project Delta の作例画像',
+  },
+  {
+    title: 'Project Epsilon',
+    description: 'シーラカンスの進化をたどるモーショングラフィックス',
+    imageSrc: 'https://placehold.co/1920x1080/101e32/22d3ee?text=Project+Epsilon',
+    imageAlt: 'Project Epsilon の作例画像',
+  },
+];
+---
+
+<section id="works" class="relative min-h-svh bg-base-alt">
+  <div class="absolute inset-x-0 top-0 z-10 bg-linear-to-b from-abyss/80 to-transparent pt-20 pb-16 md:pt-28 md:pb-20">
+    <div class="mx-auto max-w-7xl px-4 lg:px-8">
+      <h2 class="text-2xl font-bold text-heading md:text-4xl">Works</h2>
+      <p class="mt-2 text-body-secondary">これまでの制作実績</p>
+    </div>
+  </div>
+
+  <div class="swiper h-svh" data-works-swiper>
+    <div class="swiper-wrapper">
+      {works.map((work) => (
+        <div class="swiper-slide relative">
+          <img
+            src={work.imageSrc}
+            alt={work.imageAlt}
+            class="h-full w-full object-cover"
+            loading="lazy"
+          />
+          <div class="absolute inset-x-0 bottom-0 z-10 bg-linear-to-t from-abyss/90 via-abyss/50 to-transparent px-4 pb-8 pt-20 md:px-8 md:pb-12 lg:px-16">
+            <div class="mx-auto max-w-7xl">
+              <h3 class="text-xl font-bold text-heading md:text-2xl lg:text-3xl">{work.title}</h3>
+              <p class="mt-2 text-sm text-body-secondary md:text-base">{work.description}</p>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <div class="swiper-pagination" data-works-pagination></div>
+  </div>
+</section>
+
+<script>
+  import Swiper from 'swiper';
+  import { Autoplay, EffectFade, Pagination } from 'swiper/modules';
+
+  const swiperEl = document.querySelector<HTMLElement>('[data-works-swiper]');
+
+  if (swiperEl) {
+    new Swiper(swiperEl, {
+      modules: [Autoplay, EffectFade, Pagination],
+      effect: 'fade',
+      fadeEffect: {
+        crossFade: true,
+      },
+      autoplay: {
+        delay: 4000,
+        disableOnInteraction: false,
+        pauseOnMouseEnter: true,
+      },
+      loop: true,
+      speed: 1000,
+      pagination: {
+        el: '[data-works-pagination]',
+        clickable: true,
+      },
+    });
+  }
+</script>
