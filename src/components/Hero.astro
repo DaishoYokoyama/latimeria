@@ -1,0 +1,15 @@
+---
+import { Image } from 'astro:assets';
+import logo from '../assets/01logo.png';
+
+interface Props {}
+---
+
+<section class="min-h-svh flex items-center justify-center bg-gradient-to-b from-abyss to-deep">
+  <h1 class="sr-only">Latimeria</h1>
+  <Image
+    src={logo}
+    alt="Latimeria ラティメリア"
+    class="w-48 md:w-64 lg:w-80 h-auto"
+  />
+</section>
