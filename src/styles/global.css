@@ -25,8 +25,8 @@
 
 /* ----- Layer 2: Semantic Tokens ----- */
 @theme inline {
-  --color-base: var(--sem-bg-base);
-  --color-base-alt: var(--sem-bg-alt);
+  --color-canvas: var(--sem-bg-base);
+  --color-canvas-alt: var(--sem-bg-alt);
   --color-elevated: var(--sem-bg-elevated);
   --color-overlay: var(--sem-bg-overlay);
 

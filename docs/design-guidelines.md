@@ -62,8 +62,8 @@ Layer 3: CSS Custom Properties (:root)  — --sem-* variables (change here for m
 
 | Tailwind class | Usage | Dark value |
 |---|---|---|
-| `bg-base` | Main background | `#0b1628` (deep) |
-| `bg-base-alt` | Alternating section background | `#060d18` (abyss) |
+| `bg-canvas` | Main background | `#0b1628` (deep) |
+| `bg-canvas-alt` | Alternating section background | `#060d18` (abyss) |
 | `bg-elevated` | Cards / panels | `#162d4a` (surface) |
 | `bg-overlay` | Overlays / sidebars | `#101e32` (ocean) |
 | `text-body` | Body text | `#e2e8f0` (foreground) |
@@ -119,3 +119,4 @@ Considerations:
 ## Lessons Learned
 
 - Commit messages must follow Conventional Commits format (`<type>(<scope>): <subject>`). See [Git Rules](git-rules.md) for details.
+- Tailwind v4 の `--color-*` トークン名は組み込みユーティリティと衝突しないようにする。`--color-base` は `text-base` (font-size) を上書きするため `--color-canvas` にリネームした。`sm`, `lg`, `xl` なども同様に避けること。
