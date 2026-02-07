@@ -8,6 +8,7 @@ Astro 5 + Tailwind CSS v4 で構築する日本語ホームページ。
 - [Git Rules](docs/git-rules.md)
 - [Design Guidelines](docs/design-guidelines.md)
 - [Requirements](docs/requirements.md)
+- [Agent Teams](docs/agent-teams.md)
 
 ## DO
 
@@ -42,6 +43,8 @@ When a correction is given during code review:
 1. Fix the code
 2. Add the learned rule to the **Lessons Learned** section of the relevant doc
 3. Follow the rule in all future implementations
+
+After each feature completion, run the **Retrospective Process** defined in [Agent Teams](docs/agent-teams.md#retrospective-process) to review and update guidelines.
 
 ## Sub-Agent Directive
 
