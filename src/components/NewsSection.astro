@@ -46,7 +46,7 @@ function formatDate(dateStr: string): string {
 
 <section id="news" class="bg-canvas-alt px-4 py-20 md:py-32 lg:px-8">
   <div class="mx-auto max-w-7xl">
-    <h2 class="text-2xl font-bold text-heading md:text-4xl">News</h2>
+    <h2 class="text-heading-2 font-bold tracking-snug text-heading md:text-2xl">News</h2>
     <p class="mt-2 text-body-secondary">お知らせ</p>
 
     <ul class="mt-10 divide-y divide-subtle md:mt-14" role="list">
@@ -58,7 +58,7 @@ function formatDate(dateStr: string): string {
           >
             <time
               datetime={item.date}
-              class="shrink-0 text-sm text-body-secondary transition-colors group-hover:text-link-hover md:w-32"
+              class="shrink-0 text-caption tracking-wide text-body-secondary transition-colors group-hover:text-link-hover md:w-32"
             >
               {formatDate(item.date)}
             </time>
