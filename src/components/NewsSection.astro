@@ -1,0 +1,73 @@
+---
+interface NewsItem {
+  title: string;
+  date: string;
+  url: string;
+}
+
+interface Props {
+  items?: NewsItem[];
+}
+
+const defaultItems: NewsItem[] = [
+  {
+    title: 'ウェブサイトをリニューアルしました',
+    date: '2026-02-01',
+    url: '#',
+  },
+  {
+    title: '深海探査プロジェクトのデザインを公開',
+    date: '2026-01-20',
+    url: '#',
+  },
+  {
+    title: '海洋環境保全イベントに参加します',
+    date: '2026-01-10',
+    url: '#',
+  },
+  {
+    title: 'シーラカンスの生態に関するインフォグラフィック制作',
+    date: '2025-12-15',
+    url: '#',
+  },
+  {
+    title: 'デザインアワード2025にノミネートされました',
+    date: '2025-12-01',
+    url: '#',
+  },
+];
+
+const items = Astro.props.items ?? defaultItems;
+
+function formatDate(dateStr: string): string {
+  return dateStr.replace(/-/g, '.');
+}
+---
+
+<section id="news" class="bg-base-alt px-4 py-20 md:py-32 lg:px-8">
+  <div class="mx-auto max-w-7xl">
+    <h2 class="text-2xl font-bold text-heading md:text-4xl">News</h2>
+    <p class="mt-2 text-body-secondary">お知らせ</p>
+
+    <ul class="mt-10 divide-y divide-subtle md:mt-14" role="list">
+      {items.map((item) => (
+        <li>
+          <a
+            href={item.url}
+            class="group flex flex-col gap-1 py-4 transition-colors hover:text-link-hover md:flex-row md:items-baseline md:gap-6 md:py-5"
+          >
+            <time
+              datetime={item.date}
+              class="shrink-0 text-sm text-body-secondary transition-colors group-hover:text-link-hover md:w-32"
+            >
+              {formatDate(item.date)}
+            </time>
+            <span class="text-body transition-colors group-hover:text-link-hover">
+              {item.title}
+            </span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
