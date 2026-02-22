@@ -1,43 +1,11 @@
 ---
-interface NewsItem {
-  title: string;
-  date: string;
-  url: string;
-}
+import { getCollection } from "astro:content";
 
-interface Props {
-  items?: NewsItem[];
-}
+interface Props {}
 
-const defaultItems: NewsItem[] = [
-  {
-    title: "ウェブサイトをリニューアルしました",
-    date: "2026-02-01",
-    url: "#",
-  },
-  {
-    title: "深海探査プロジェクトのデザインを公開",
-    date: "2026-01-20",
-    url: "#",
-  },
-  {
-    title: "海洋環境保全イベントに参加します",
-    date: "2026-01-10",
-    url: "#",
-  },
-  {
-    title: "シーラカンスの生態に関するインフォグラフィック制作",
-    date: "2025-12-15",
-    url: "#",
-  },
-  {
-    title: "デザインアワード2025にノミネートされました",
-    date: "2025-12-01",
-    url: "#",
-  },
-];
-
-const items = Astro.props.items ?? defaultItems;
+const news = (await getCollection("news")).toSorted((a, b) =>
+  b.data.date.localeCompare(a.data.date),
+);
 
 function formatDate(dateStr: string): string {
   return dateStr.replace(/-/g, ".");
@@ -53,25 +21,140 @@ function formatDate(dateStr: string): string {
 
     <ul class="mt-10 divide-y divide-subtle md:mt-14" role="list">
       {
-        items.map((item) => (
+        news.map((entry, index) => (
           <li>
-            <a
-              href={item.url}
-              class="group flex flex-col gap-1 py-4 transition-colors hover:text-link-hover md:flex-row md:items-baseline md:gap-6 md:py-5"
+            <button
+              type="button"
+              data-news-index={index}
+              data-content={entry.data.content}
+              class="group flex w-full cursor-pointer flex-col gap-1 py-4 text-left transition-colors hover:text-link-hover md:flex-row md:items-baseline md:gap-6 md:py-5"
             >
               <time
-                datetime={item.date}
+                datetime={entry.data.date}
                 class="text-caption shrink-0 tracking-wide text-body-secondary transition-colors group-hover:text-link-hover md:w-32"
               >
-                {formatDate(item.date)}
+                {formatDate(entry.data.date)}
               </time>
               <span class="text-body transition-colors group-hover:text-link-hover">
-                {item.title}
+                {entry.data.title}
               </span>
-            </a>
+            </button>
           </li>
         ))
       }
     </ul>
   </div>
+
+  <dialog
+    data-news-modal
+    aria-label="お知らせ詳細"
+    class="m-0 h-full max-h-dvh w-full max-w-full bg-transparent p-0"
+  >
+    <div class="flex h-full w-full items-center justify-center p-4 md:p-8">
+      <button
+        type="button"
+        data-news-modal-backdrop
+        class="fixed inset-0 cursor-default"
+        aria-label="閉じる"
+        tabindex="-1"></button>
+
+      <div
+        class="relative z-10 w-full max-w-2xl rounded-lg bg-elevated p-6 md:p-8"
+      >
+        <button
+          type="button"
+          data-news-modal-close
+          aria-label="閉じる"
+          class="absolute top-4 right-4 z-20 flex h-10 w-10 items-center justify-center rounded-full text-body transition-colors hover:text-link-hover"
+        >
+          <svg
+            class="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="2"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M6 18 18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+
+        <div class="pr-8">
+          <h3
+            class="text-heading-3 font-semibold text-heading md:text-xl"
+            data-news-modal-title
+          >
+          </h3>
+          <time
+            class="text-caption mt-1 block tracking-wide text-body-secondary"
+            data-news-modal-date
+          >
+          </time>
+        </div>
+
+        <div
+          class="text-body-std mt-6 whitespace-pre-wrap text-body"
+          data-news-modal-content
+        >
+        </div>
+      </div>
+    </div>
+  </dialog>
 </section>
+
+<script>
+  const modal = document.querySelector<HTMLDialogElement>("[data-news-modal]");
+  const modalTitle = modal?.querySelector<HTMLElement>(
+    "[data-news-modal-title]",
+  );
+  const modalDate = modal?.querySelector<HTMLElement>("[data-news-modal-date]");
+  const modalContent = modal?.querySelector<HTMLElement>(
+    "[data-news-modal-content]",
+  );
+
+  function formatDate(dateStr: string): string {
+    return dateStr.replace(/-/g, ".");
+  }
+
+  function openModal(button: HTMLElement) {
+    if (!modal || !modalTitle || !modalDate || !modalContent) return;
+
+    const li = button.closest("li");
+    if (!li) return;
+
+    const title = button.querySelector("span")?.textContent ?? "";
+    const time = button.querySelector("time");
+    const date = time?.getAttribute("datetime") ?? "";
+    const content = button.dataset.content ?? "";
+
+    modalTitle.textContent = title;
+    modalDate.textContent = formatDate(date);
+    if (time) {
+      (modalDate as HTMLTimeElement).dateTime = date;
+    }
+    modalContent.textContent = content;
+
+    modal.showModal();
+  }
+
+  function closeModal() {
+    if (!modal) return;
+    modal.close();
+  }
+
+  document
+    .querySelectorAll<HTMLElement>("[data-news-index]")
+    .forEach((button) => {
+      button.addEventListener("click", () => openModal(button));
+    });
+
+  modal
+    ?.querySelector("[data-news-modal-close]")
+    ?.addEventListener("click", closeModal);
+
+  modal
+    ?.querySelector("[data-news-modal-backdrop]")
+    ?.addEventListener("click", closeModal);
+</script>
