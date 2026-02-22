@@ -57,12 +57,21 @@ const news = defineCollection({
     }
 
     return data.table.rows.map(
-      (row: { c: ({ v: string } | null)[] }, index: number) => ({
-        id: String(index),
-        title: row.c[titleIdx]?.v ?? "",
-        date: row.c[dateIdx]?.v ?? "",
-        content: row.c[contentIdx]?.v ?? "",
-      }),
+      (row: { c: ({ v: string } | null)[] }, index: number) => {
+        const rawDate = row.c[dateIdx]?.v ?? "";
+        // gviz returns dates as "Date(year,month,day)" where month is 0-indexed
+        const dateMatch = rawDate.match(/^Date\((\d+),(\d+),(\d+)\)$/);
+        const date = dateMatch
+          ? `${dateMatch[1]}-${String(Number(dateMatch[2]) + 1).padStart(2, "0")}-${dateMatch[3].padStart(2, "0")}`
+          : rawDate;
+
+        return {
+          id: String(index),
+          title: row.c[titleIdx]?.v ?? "",
+          date,
+          content: row.c[contentIdx]?.v ?? "",
+        };
+      },
     );
   },
   schema: z.object({
