@@ -68,6 +68,9 @@
   --color-subtle: var(--sem-border-subtle);
 
   --color-focus: var(--sem-ring);
+
+  --color-error-text: var(--sem-error-text);
+  --color-error-border: var(--sem-error-border);
 }
 
 /* ----- Layer 3: Theme Values (dark fixed) ----- */
@@ -93,6 +96,9 @@
   --sem-border-subtle: #0f2744;
 
   --sem-ring: #22d3ee;
+
+  --sem-error-text: #fca5a5;
+  --sem-error-border: #ef4444;
 }
 
 /* ----- Base Styles ----- */

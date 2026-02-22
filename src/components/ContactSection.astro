@@ -9,13 +9,25 @@ interface Props {}
     </h2>
     <p class="mt-2 text-body-secondary">お問い合わせ</p>
 
-    <form class="mx-auto mt-10 max-w-2xl md:mt-14">
+    <form class="mx-auto mt-10 max-w-2xl md:mt-14" novalidate>
+      <div
+        id="contact-error-summary"
+        class="mb-6 hidden rounded-lg border border-error-border bg-overlay p-4"
+        role="alert"
+      >
+        <p class="text-body-std font-semibold text-error-text">
+          入力内容に <span id="contact-error-count">0</span> 件のエラーがあります
+        </p>
+      </div>
+
       <div class="flex flex-col gap-2">
         <label
           for="contact-name"
           class="text-body-std font-semibold tracking-wider text-body"
         >
-          お名前 <span class="text-body-secondary">*</span>
+          お名前
+          <span aria-hidden="true" class="text-body-secondary">*</span>
+          <span class="sr-only">（必須）</span>
         </label>
         <input
           type="text"
@@ -23,9 +35,16 @@ interface Props {}
           name="name"
           required
           autocomplete="name"
+          aria-describedby="contact-name-error"
           class="rounded-lg border border-default bg-overlay px-4 py-3 text-body transition-colors placeholder:text-body-secondary focus:border-focus focus:ring-2 focus:ring-focus focus:outline-none"
           placeholder="山田 太郎"
         />
+        <p
+          id="contact-name-error"
+          class="text-caption hidden text-error-text"
+          aria-live="polite"
+        >
+        </p>
       </div>
 
       <div class="mt-6 flex flex-col gap-2">
@@ -33,7 +52,9 @@ interface Props {}
           for="contact-email"
           class="text-body-std font-semibold tracking-wider text-body"
         >
-          メールアドレス <span class="text-body-secondary">*</span>
+          メールアドレス
+          <span aria-hidden="true" class="text-body-secondary">*</span>
+          <span class="sr-only">（必須）</span>
         </label>
         <input
           type="email"
@@ -41,9 +62,16 @@ interface Props {}
           name="email"
           required
           autocomplete="email"
+          aria-describedby="contact-email-error"
           class="rounded-lg border border-default bg-overlay px-4 py-3 text-body transition-colors placeholder:text-body-secondary focus:border-focus focus:ring-2 focus:ring-focus focus:outline-none"
           placeholder="example@email.com"
         />
+        <p
+          id="contact-email-error"
+          class="text-caption hidden text-error-text"
+          aria-live="polite"
+        >
+        </p>
       </div>
 
       <div class="mt-6 flex flex-col gap-2">
@@ -51,16 +79,25 @@ interface Props {}
           for="contact-subject"
           class="text-body-std font-semibold tracking-wider text-body"
         >
-          件名 <span class="text-body-secondary">*</span>
+          件名
+          <span aria-hidden="true" class="text-body-secondary">*</span>
+          <span class="sr-only">（必須）</span>
         </label>
         <input
           type="text"
           id="contact-subject"
           name="subject"
           required
+          aria-describedby="contact-subject-error"
           class="rounded-lg border border-default bg-overlay px-4 py-3 text-body transition-colors placeholder:text-body-secondary focus:border-focus focus:ring-2 focus:ring-focus focus:outline-none"
           placeholder="お問い合わせの件名"
         />
+        <p
+          id="contact-subject-error"
+          class="text-caption hidden text-error-text"
+          aria-live="polite"
+        >
+        </p>
       </div>
 
       <div class="mt-6 flex flex-col gap-2">
@@ -68,15 +105,24 @@ interface Props {}
           for="contact-message"
           class="text-body-std font-semibold tracking-wider text-body"
         >
-          メッセージ <span class="text-body-secondary">*</span>
+          メッセージ
+          <span aria-hidden="true" class="text-body-secondary">*</span>
+          <span class="sr-only">（必須）</span>
         </label>
         <textarea
           id="contact-message"
           name="message"
           required
           rows="6"
+          aria-describedby="contact-message-error"
           class="resize-y rounded-lg border border-default bg-overlay px-4 py-3 text-body transition-colors placeholder:text-body-secondary focus:border-focus focus:ring-2 focus:ring-focus focus:outline-none"
           placeholder="お問い合わせ内容をご記入ください"></textarea>
+        <p
+          id="contact-message-error"
+          class="text-caption hidden text-error-text"
+          aria-live="polite"
+        >
+        </p>
       </div>
 
       <div class="mt-8">
@@ -90,3 +136,125 @@ interface Props {}
     </form>
   </div>
 </section>
+
+<script>
+  const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  const FIELDS = [
+    {
+      id: "contact-name",
+      validate(value: string): string {
+        if (!value.trim()) return "お名前を入力してください";
+        return "";
+      },
+    },
+    {
+      id: "contact-email",
+      validate(value: string): string {
+        if (!value.trim()) return "メールアドレスを入力してください";
+        if (!EMAIL_REGEX.test(value.trim()))
+          return "正しいメールアドレスの形式で入力してください";
+        return "";
+      },
+    },
+    {
+      id: "contact-subject",
+      validate(value: string): string {
+        if (!value.trim()) return "件名を入力してください";
+        return "";
+      },
+    },
+    {
+      id: "contact-message",
+      validate(value: string): string {
+        if (!value.trim()) return "メッセージを入力してください";
+        return "";
+      },
+    },
+  ];
+
+  function showError(fieldId: string, message: string): void {
+    const input = document.getElementById(fieldId);
+    const errorEl = document.getElementById(`${fieldId}-error`);
+    if (!input || !errorEl) return;
+
+    input.classList.replace("border-default", "border-error-border");
+    input.setAttribute("aria-invalid", "true");
+    errorEl.textContent = message;
+    errorEl.classList.remove("hidden");
+  }
+
+  function clearError(fieldId: string): void {
+    const input = document.getElementById(fieldId);
+    const errorEl = document.getElementById(`${fieldId}-error`);
+    if (!input || !errorEl) return;
+
+    input.classList.replace("border-error-border", "border-default");
+    input.removeAttribute("aria-invalid");
+    errorEl.textContent = "";
+    errorEl.classList.add("hidden");
+  }
+
+  function validateField(field: (typeof FIELDS)[number]): boolean {
+    const input = document.getElementById(field.id) as
+      | HTMLInputElement
+      | HTMLTextAreaElement
+      | null;
+    if (!input) return true;
+
+    const message = field.validate(input.value);
+    if (message) {
+      showError(field.id, message);
+      return false;
+    }
+    clearError(field.id);
+    return true;
+  }
+
+  function init(): void {
+    const form = document.querySelector(
+      "#contact form",
+    ) as HTMLFormElement | null;
+    if (!form) return;
+
+    for (const field of FIELDS) {
+      const input = document.getElementById(field.id);
+      if (!input) continue;
+
+      input.addEventListener("blur", () => {
+        validateField(field);
+      });
+    }
+
+    form.addEventListener("submit", (event: Event) => {
+      event.preventDefault();
+
+      let errorCount = 0;
+      let firstErrorId = "";
+
+      for (const field of FIELDS) {
+        const valid = validateField(field);
+        if (!valid) {
+          errorCount++;
+          if (!firstErrorId) firstErrorId = field.id;
+        }
+      }
+
+      const summary = document.getElementById("contact-error-summary");
+      const countEl = document.getElementById("contact-error-count");
+
+      if (errorCount > 0) {
+        if (summary && countEl) {
+          countEl.textContent = String(errorCount);
+          summary.classList.remove("hidden");
+        }
+        const firstErrorInput = document.getElementById(firstErrorId);
+        if (firstErrorInput) firstErrorInput.focus();
+      } else {
+        if (summary) summary.classList.add("hidden");
+      }
+    });
+  }
+
+  init();
+</script>
