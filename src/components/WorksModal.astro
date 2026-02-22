@@ -1,0 +1,62 @@
+---
+interface Props {}
+---
+
+<dialog
+  data-works-modal
+  aria-label="作品詳細"
+  class="m-0 h-full max-h-dvh w-full max-w-full bg-transparent p-0"
+>
+  <div class="flex h-full w-full items-center justify-center p-4 md:p-8">
+    <button
+      type="button"
+      data-works-modal-backdrop
+      class="fixed inset-0 cursor-default"
+      aria-label="閉じる"
+      tabindex="-1"></button>
+
+    <div
+      class="relative z-10 flex max-h-full w-full max-w-5xl flex-col items-center gap-4"
+    >
+      <button
+        type="button"
+        data-works-modal-close
+        aria-label="閉じる"
+        class="absolute -top-2 -right-2 z-20 flex h-10 w-10 items-center justify-center rounded-full bg-abyss/80 text-body transition-colors hover:text-link-hover md:-top-4 md:-right-4"
+      >
+        <svg
+          class="h-6 w-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="2"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M6 18 18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+
+      <img
+        data-works-modal-image
+        src=""
+        alt=""
+        class="max-h-[70dvh] w-auto max-w-full rounded object-contain"
+      />
+
+      <div class="text-center" data-works-modal-info>
+        <h3
+          class="text-heading-3 font-semibold text-heading md:text-xl"
+          data-works-modal-title
+        >
+        </h3>
+        <p
+          class="text-body-std mt-1 text-body-secondary"
+          data-works-modal-description
+        >
+        </p>
+      </div>
+    </div>
+  </div>
+</dialog>

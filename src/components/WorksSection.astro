@@ -1,6 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import { Image } from "astro:assets";
+import WorksModal from "./WorksModal.astro";
 
 interface Props {}
 
@@ -44,12 +45,21 @@ const works = (await getCollection("works")).toSorted(
     <div class="swiper-wrapper">
       {
         works.map((entry) => (
-          <div class="swiper-slide relative bg-abyss">
+          <div
+            class="swiper-slide relative cursor-pointer bg-abyss"
+            role="button"
+            tabindex="0"
+            aria-label={`${entry.data.title} を拡大表示`}
+            data-works-slide
+            data-title={entry.data.title}
+            data-description={entry.data.description}
+          >
             <Image
               src={entry.data.image}
               alt={`${entry.data.title} の作例画像`}
               class={`h-full w-full ${fitClassMap[entry.data.imageFit]} ${positionClassMap[entry.data.imagePosition]}`}
               loading="lazy"
+              data-works-slide-image
             />
             <div class="absolute inset-x-0 bottom-0 z-10 bg-linear-to-t from-abyss/90 via-abyss/50 to-transparent px-4 pt-20 pb-8 md:px-8 md:pb-12 lg:px-16">
               <div class="mx-auto max-w-7xl">
@@ -68,6 +78,8 @@ const works = (await getCollection("works")).toSorted(
 
     <div class="swiper-pagination" data-works-pagination></div>
   </div>
+
+  <WorksModal />
 </section>
 
 <script>
@@ -76,8 +88,10 @@ const works = (await getCollection("works")).toSorted(
 
   const swiperEl = document.querySelector<HTMLElement>("[data-works-swiper]");
 
+  let swiperInstance: Swiper | null = null;
+
   if (swiperEl) {
-    new Swiper(swiperEl, {
+    swiperInstance = new Swiper(swiperEl, {
       modules: [Autoplay, EffectFade, Pagination],
       effect: "fade",
       fadeEffect: {
@@ -96,4 +110,62 @@ const works = (await getCollection("works")).toSorted(
       },
     });
   }
+
+  const modal = document.querySelector<HTMLDialogElement>("[data-works-modal]");
+  const modalImage = modal?.querySelector<HTMLImageElement>(
+    "[data-works-modal-image]",
+  );
+  const modalTitle = modal?.querySelector<HTMLElement>(
+    "[data-works-modal-title]",
+  );
+  const modalDescription = modal?.querySelector<HTMLElement>(
+    "[data-works-modal-description]",
+  );
+
+  function openModal(slide: HTMLElement) {
+    if (!modal || !modalImage || !modalTitle || !modalDescription) return;
+
+    const img = slide.querySelector<HTMLImageElement>(
+      "[data-works-slide-image]",
+    );
+    if (!img) return;
+
+    modalImage.src = img.currentSrc || img.src;
+    modalImage.alt = img.alt;
+    modalTitle.textContent = slide.dataset.title ?? "";
+    modalDescription.textContent = slide.dataset.description ?? "";
+
+    swiperInstance?.autoplay.stop();
+    modal.showModal();
+  }
+
+  function closeModal() {
+    if (!modal) return;
+    modal.close();
+    swiperInstance?.autoplay.start();
+  }
+
+  document
+    .querySelectorAll<HTMLElement>("[data-works-slide]")
+    .forEach((slide) => {
+      slide.addEventListener("click", () => openModal(slide));
+      slide.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          openModal(slide);
+        }
+      });
+    });
+
+  modal
+    ?.querySelector("[data-works-modal-close]")
+    ?.addEventListener("click", closeModal);
+
+  modal
+    ?.querySelector("[data-works-modal-backdrop]")
+    ?.addEventListener("click", closeModal);
+
+  modal?.addEventListener("close", () => {
+    swiperInstance?.autoplay.start();
+  });
 </script>
