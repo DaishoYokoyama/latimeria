@@ -1,4 +1,6 @@
 ---
+import logo from "../assets/logo.png";
+
 interface Props {
   title?: string;
   description?: string;
@@ -8,7 +10,7 @@ interface Props {
 const {
   title = "Latimeria",
   description = "Latimeria — ステンドグラスのシーラカンスをモチーフにしたクリエイティブプロジェクト",
-  image = "/og-image.png",
+  image = logo.src,
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
