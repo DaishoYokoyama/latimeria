@@ -42,28 +42,28 @@ const works: WorkItem[] = [
 ];
 ---
 
-<section id="works" class="relative min-h-svh bg-canvas-alt">
-  <div class="absolute inset-x-0 top-0 z-10 bg-linear-to-b from-abyss/80 to-transparent pt-20 pb-16 md:pt-28 md:pb-20">
+<section id="works" class="relative bg-canvas-alt">
+  <div class="inset-x-0 top-0 z-10 bg-linear-to-b from-abyss/80 to-transparent pt-20 pb-4 md:pt-28 ">
     <div class="mx-auto max-w-7xl px-4 lg:px-8">
       <h2 class="text-heading-2 font-bold tracking-snug text-heading md:text-2xl">Works</h2>
       <p class="mt-2 text-body-secondary">制作実績</p>
     </div>
   </div>
 
-  <div class="swiper h-svh" data-works-swiper>
+  <div class="swiper aspect-video" data-works-swiper>
     <div class="swiper-wrapper">
       {works.map((work) => (
-        <div class="swiper-slide relative">
+        <div class="swiper-slide relative bg-abyss">
           <img
             src={work.imageSrc}
             alt={work.imageAlt}
-            class="h-full w-full object-cover"
+            class="w-full object-contain object-bottom"
             loading="lazy"
           />
           <div class="absolute inset-x-0 bottom-0 z-10 bg-linear-to-t from-abyss/90 via-abyss/50 to-transparent px-4 pb-8 pt-20 md:px-8 md:pb-12 lg:px-16">
             <div class="mx-auto max-w-7xl">
               <h3 class="text-heading-3 font-semibold text-heading md:text-xl">{work.title}</h3>
-              <p class="mt-2 text-body-std text-body-secondary md:text-body-large">{work.description}</p>
+              <p class="text-body-std text-body-secondary md:text-body-large">{work.description}</p>
             </div>
           </div>
         </div>
