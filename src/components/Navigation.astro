@@ -80,7 +80,7 @@ interface Props {}
 
   <div
     id="mobile-menu"
-    class="max-h-0 overflow-hidden border-t border-subtle bg-deep/80 opacity-0 backdrop-blur-md transition-all duration-300 ease-in-out md:hidden"
+    class="invisible max-h-0 overflow-hidden border-t border-subtle bg-deep/80 opacity-0 backdrop-blur-md transition-all duration-300 ease-in-out md:hidden"
     data-mobile-menu
   >
     <ul class="flex flex-col px-4 py-2" role="list">
@@ -138,12 +138,21 @@ interface Props {}
     if (!toggle || !menu || !hamburgerIcon || !closeIcon) return;
     toggle.setAttribute("aria-expanded", "true");
     toggle.setAttribute("aria-label", "メニューを閉じる");
-    menu.classList.remove("max-h-0", "opacity-0");
-    menu.classList.add("max-h-60", "opacity-100");
+    menu.classList.remove("invisible", "max-h-0", "opacity-0");
+    menu.classList.add("visible", "max-h-60", "opacity-100");
     hamburgerIcon.classList.add("opacity-0");
     hamburgerIcon.classList.remove("opacity-100");
     closeIcon.classList.remove("opacity-0");
     closeIcon.classList.add("opacity-100");
+
+    menu.addEventListener(
+      "transitionend",
+      () => {
+        const firstLink = menu.querySelector("a");
+        firstLink?.focus();
+      },
+      { once: true },
+    );
   }
 
   function closeMenu() {
@@ -151,11 +160,19 @@ interface Props {}
     toggle.setAttribute("aria-expanded", "false");
     toggle.setAttribute("aria-label", "メニューを開く");
     menu.classList.add("max-h-0", "opacity-0");
-    menu.classList.remove("max-h-60", "opacity-100");
+    menu.classList.remove("visible", "max-h-60", "opacity-100");
     hamburgerIcon.classList.remove("opacity-0");
     hamburgerIcon.classList.add("opacity-100");
     closeIcon.classList.add("opacity-0");
     closeIcon.classList.remove("opacity-100");
+
+    menu.addEventListener(
+      "transitionend",
+      () => {
+        menu.classList.add("invisible");
+      },
+      { once: true },
+    );
   }
 
   toggle?.addEventListener("click", () => {
@@ -181,5 +198,23 @@ interface Props {}
     link.addEventListener("click", () => {
       closeMenu();
     });
+  });
+
+  document.addEventListener("click", (e) => {
+    if (
+      toggle?.getAttribute("aria-expanded") === "true" &&
+      !header?.contains(e.target as Node)
+    ) {
+      closeMenu();
+    }
+  });
+
+  document.addEventListener("focusin", (e) => {
+    if (
+      toggle?.getAttribute("aria-expanded") === "true" &&
+      !header?.contains(e.target as Node)
+    ) {
+      closeMenu();
+    }
   });
 </script>
