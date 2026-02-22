@@ -1,0 +1,33 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Footer from "../components/Footer.astro";
+
+interface Props {}
+---
+
+<Layout title="ページが見つかりません | Latimeria">
+  <main id="main-content">
+    <section
+      class="flex min-h-[calc(100svh-200px)] flex-col items-center justify-center px-4 text-center"
+    >
+      <p class="text-8xl font-bold text-primary md:text-9xl" aria-hidden="true">
+        404
+      </p>
+      <h1
+        class="text-heading-1 mt-4 font-bold tracking-tight text-heading md:text-4xl"
+      >
+        このページは深海に沈んでしまったようです
+      </h1>
+      <p class="text-body-large mt-4 text-body-secondary">
+        お探しのページは存在しないか、移動した可能性があります。
+      </p>
+      <a
+        href="/"
+        class="text-body-large mt-8 inline-block rounded-lg bg-interactive px-8 py-3 font-bold text-abyss transition-colors hover:bg-interactive-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
+      >
+        ホームへ戻る
+      </a>
+    </section>
+  </main>
+  <Footer />
+</Layout>
