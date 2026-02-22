@@ -4,6 +4,18 @@ import { Image } from "astro:assets";
 
 interface Props {}
 
+const positionClassMap: Record<string, string> = {
+  top: "object-top",
+  center: "object-center",
+  bottom: "object-bottom",
+  left: "object-left",
+  right: "object-right",
+  "left-top": "object-left-top",
+  "left-bottom": "object-left-bottom",
+  "right-top": "object-right-top",
+  "right-bottom": "object-right-bottom",
+};
+
 const works = (await getCollection("works")).toSorted(
   (a, b) => a.data.order - b.data.order,
 );
@@ -31,7 +43,7 @@ const works = (await getCollection("works")).toSorted(
             <Image
               src={entry.data.image}
               alt={`${entry.data.title} の作例画像`}
-              class="w-full object-contain object-bottom"
+              class={`h-full w-full object-cover ${positionClassMap[entry.data.imagePosition]}`}
               loading="lazy"
             />
             <div class="absolute inset-x-0 bottom-0 z-10 bg-linear-to-t from-abyss/90 via-abyss/50 to-transparent px-4 pt-20 pb-8 md:px-8 md:pb-12 lg:px-16">
