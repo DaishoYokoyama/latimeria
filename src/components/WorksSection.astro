@@ -41,7 +41,7 @@ const works = (await getCollection("works")).toSorted(
     </div>
   </div>
 
-  <div class="swiper aspect-video" data-works-swiper>
+  <div class="swiper aspect-video md:max-h-[600px]" data-works-swiper>
     <div class="swiper-wrapper">
       {
         works.map((entry) => (
