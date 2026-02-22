@@ -2,6 +2,7 @@
 title: "雪中"
 description: ""
 image: ./002.JPG
-imagePosition: bottom
+imageFit: cover
+imagePosition: center
 order: 2
 ---

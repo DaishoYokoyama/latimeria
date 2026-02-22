@@ -2,6 +2,7 @@
 title: "しずくのランプ"
 description: ""
 image: ./003.JPG
-imagePosition: bottom
+imageFit: cover
+imagePosition: center
 order: 3
 ---

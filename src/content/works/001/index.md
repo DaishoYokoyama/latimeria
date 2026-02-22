@@ -2,6 +2,7 @@
 title: "シーラカンス"
 description: ""
 image: ./001.JPG
-imagePosition: top
+imageFit: cover
+imagePosition: center
 order: 1
 ---

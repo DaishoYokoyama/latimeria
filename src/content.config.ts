@@ -13,6 +13,8 @@ const imagePositionValues = [
   "right-bottom",
 ] as const;
 
+const imageFitValues = ["contain", "cover"] as const;
+
 const works = defineCollection({
   loader: glob({ pattern: "**/index.md", base: "./src/content/works" }),
   schema: ({ image }) =>
@@ -21,6 +23,7 @@ const works = defineCollection({
       description: z.string(),
       image: image(),
       order: z.number(),
+      imageFit: z.enum(imageFitValues).default("contain"),
       imagePosition: z.enum(imagePositionValues).default("bottom"),
     }),
 });
