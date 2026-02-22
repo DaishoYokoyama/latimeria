@@ -1,46 +1,12 @@
 ---
+import { getCollection } from "astro:content";
+import { Image } from "astro:assets";
+
 interface Props {}
 
-interface WorkItem {
-  title: string;
-  description: string;
-  imageSrc: string;
-  imageAlt: string;
-}
-
-const works: WorkItem[] = [
-  {
-    title: "Project Alpha",
-    description: "深海探査プロジェクトのビジュアルデザイン",
-    imageSrc: "https://placehold.co/1920x1080/0b1628/22d3ee?text=Project+Alpha",
-    imageAlt: "Project Alpha の作例画像",
-  },
-  {
-    title: "Project Beta",
-    description: "海洋生物のインタラクティブ図鑑",
-    imageSrc: "https://placehold.co/1920x1080/101e32/06b6d4?text=Project+Beta",
-    imageAlt: "Project Beta の作例画像",
-  },
-  {
-    title: "Project Gamma",
-    description: "アビスをテーマにしたブランドアイデンティティ",
-    imageSrc: "https://placehold.co/1920x1080/162d4a/67e8f9?text=Project+Gamma",
-    imageAlt: "Project Gamma の作例画像",
-  },
-  {
-    title: "Project Delta",
-    description: "深海の音風景を可視化するウェブ体験",
-    imageSrc: "https://placehold.co/1920x1080/0b1628/0891b2?text=Project+Delta",
-    imageAlt: "Project Delta の作例画像",
-  },
-  {
-    title: "Project Epsilon",
-    description: "シーラカンスの進化をたどるモーショングラフィックス",
-    imageSrc:
-      "https://placehold.co/1920x1080/101e32/22d3ee?text=Project+Epsilon",
-    imageAlt: "Project Epsilon の作例画像",
-  },
-];
+const works = (await getCollection("works")).toSorted(
+  (a, b) => a.data.order - b.data.order,
+);
 ---
 
 <section id="works" class="relative bg-canvas-alt">
@@ -60,21 +26,21 @@ const works: WorkItem[] = [
   <div class="swiper aspect-video" data-works-swiper>
     <div class="swiper-wrapper">
       {
-        works.map((work) => (
+        works.map((entry) => (
           <div class="swiper-slide relative bg-abyss">
-            <img
-              src={work.imageSrc}
-              alt={work.imageAlt}
+            <Image
+              src={entry.data.image}
+              alt={`${entry.data.title} の作例画像`}
               class="w-full object-contain object-bottom"
               loading="lazy"
             />
             <div class="absolute inset-x-0 bottom-0 z-10 bg-linear-to-t from-abyss/90 via-abyss/50 to-transparent px-4 pt-20 pb-8 md:px-8 md:pb-12 lg:px-16">
               <div class="mx-auto max-w-7xl">
                 <h3 class="text-heading-3 font-semibold text-heading md:text-xl">
-                  {work.title}
+                  {entry.data.title}
                 </h3>
                 <p class="text-body-std md:text-body-large text-body-secondary">
-                  {work.description}
+                  {entry.data.description}
                 </p>
               </div>
             </div>
