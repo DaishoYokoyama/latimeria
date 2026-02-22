@@ -97,6 +97,8 @@
   body {
     background-color: var(--sem-bg-base);
     color: var(--sem-text-body);
+    font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN",
+      "Hiragino Sans", "Noto Sans JP", sans-serif;
     font-size: 0.875rem;
     line-height: 1.75;
   }
