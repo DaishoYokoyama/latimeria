@@ -77,37 +77,68 @@ interface Props {}
       </svg>
     </button>
   </nav>
-
-  <div
-    id="mobile-menu"
-    class="invisible max-h-0 overflow-hidden border-t border-subtle bg-deep/80 opacity-0 backdrop-blur-md transition-all duration-300 ease-in-out md:hidden"
-    data-mobile-menu
-  >
-    <ul class="flex flex-col px-4 py-2" role="list">
-      <li>
-        <a
-          href="#works"
-          class="text-body-large block py-3 text-body transition-colors hover:text-link-hover"
-          >Works</a
-        >
-      </li>
-      <li>
-        <a
-          href="#news"
-          class="text-body-large block py-3 text-body transition-colors hover:text-link-hover"
-          >News</a
-        >
-      </li>
-      <li>
-        <a
-          href="#contact"
-          class="text-body-large block py-3 text-body transition-colors hover:text-link-hover"
-          >Contact</a
-        >
-      </li>
-    </ul>
-  </div>
 </header>
+
+<div
+  class="pointer-events-none fixed inset-0 z-50 bg-abyss/60 opacity-0 transition-opacity duration-300 md:hidden"
+  data-menu-overlay
+>
+</div>
+
+<div
+  id="mobile-menu"
+  class="invisible fixed top-0 right-0 z-50 flex h-dvh w-64 translate-x-full flex-col bg-deep/95 backdrop-blur-md transition-transform duration-300 ease-in-out md:hidden"
+  role="dialog"
+  aria-modal="true"
+  aria-label="ナビゲーションメニュー"
+  data-mobile-menu
+>
+  <div class="flex justify-end px-4 py-3">
+    <button
+      type="button"
+      class="p-2 text-body transition-colors hover:text-link-hover"
+      aria-label="メニューを閉じる"
+      data-menu-close
+    >
+      <svg
+        class="h-6 w-6"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        aria-hidden="true"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M6 18L18 6M6 6l12 12"></path>
+      </svg>
+    </button>
+  </div>
+  <ul class="flex flex-col" role="list">
+    <li>
+      <a
+        href="#works"
+        class="text-body-large block border-b border-subtle px-6 py-4 text-body transition-colors hover:text-link-hover"
+        >Works</a
+      >
+    </li>
+    <li>
+      <a
+        href="#news"
+        class="text-body-large block border-b border-subtle px-6 py-4 text-body transition-colors hover:text-link-hover"
+        >News</a
+      >
+    </li>
+    <li>
+      <a
+        href="#contact"
+        class="text-body-large block border-b border-subtle px-6 py-4 text-body transition-colors hover:text-link-hover"
+        >Contact</a
+      >
+    </li>
+  </ul>
+</div>
 
 <script>
   const header = document.querySelector<HTMLElement>("[data-header]");
@@ -129,42 +160,98 @@ interface Props {}
   const toggle =
     document.querySelector<HTMLButtonElement>("[data-menu-toggle]");
   const menu = document.querySelector<HTMLElement>("[data-mobile-menu]");
+  const overlay = document.querySelector<HTMLElement>("[data-menu-overlay]");
+  const closeBtn =
+    document.querySelector<HTMLButtonElement>("[data-menu-close]");
   const hamburgerIcon = document.querySelector<SVGGElement>(
     "[data-hamburger-icon]",
   );
   const closeIcon = document.querySelector<SVGGElement>("[data-close-icon]");
 
+  function getFocusableElements(): HTMLElement[] {
+    if (!menu) return [];
+    return Array.from(
+      menu.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])',
+      ),
+    );
+  }
+
+  function handleFocusTrap(e: KeyboardEvent) {
+    if (e.key !== "Tab") return;
+    const focusable = getFocusableElements();
+    if (focusable.length === 0) return;
+
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+
+    if (e.shiftKey) {
+      if (document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      }
+    } else {
+      if (document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
+  }
+
   function openMenu() {
-    if (!toggle || !menu || !hamburgerIcon || !closeIcon) return;
+    if (!toggle || !menu || !overlay || !hamburgerIcon || !closeIcon) return;
+
     toggle.setAttribute("aria-expanded", "true");
     toggle.setAttribute("aria-label", "メニューを閉じる");
-    menu.classList.remove("invisible", "max-h-0", "opacity-0");
-    menu.classList.add("visible", "max-h-60", "opacity-100");
     hamburgerIcon.classList.add("opacity-0");
     hamburgerIcon.classList.remove("opacity-100");
     closeIcon.classList.remove("opacity-0");
     closeIcon.classList.add("opacity-100");
 
+    menu.classList.remove("invisible");
+    requestAnimationFrame(() => {
+      menu.classList.remove("translate-x-full");
+      menu.classList.add("translate-x-0");
+    });
+
+    overlay.classList.remove("opacity-0", "pointer-events-none");
+    overlay.classList.add("opacity-100", "pointer-events-auto");
+
+    document.body.classList.add("overflow-hidden");
+    document.querySelector("main")?.setAttribute("inert", "");
+    document.querySelector("footer")?.setAttribute("inert", "");
+
     menu.addEventListener(
       "transitionend",
       () => {
-        const firstLink = menu.querySelector("a");
+        const firstLink = menu.querySelector<HTMLElement>("a");
         firstLink?.focus();
       },
       { once: true },
     );
+
+    document.addEventListener("keydown", handleFocusTrap);
   }
 
   function closeMenu() {
-    if (!toggle || !menu || !hamburgerIcon || !closeIcon) return;
+    if (!toggle || !menu || !overlay || !hamburgerIcon || !closeIcon) return;
+
     toggle.setAttribute("aria-expanded", "false");
     toggle.setAttribute("aria-label", "メニューを開く");
-    menu.classList.add("max-h-0", "opacity-0");
-    menu.classList.remove("visible", "max-h-60", "opacity-100");
     hamburgerIcon.classList.remove("opacity-0");
     hamburgerIcon.classList.add("opacity-100");
     closeIcon.classList.add("opacity-0");
     closeIcon.classList.remove("opacity-100");
+
+    menu.classList.remove("translate-x-0");
+    menu.classList.add("translate-x-full");
+
+    overlay.classList.add("opacity-0", "pointer-events-none");
+    overlay.classList.remove("opacity-100", "pointer-events-auto");
+
+    document.body.classList.remove("overflow-hidden");
+    document.querySelector("main")?.removeAttribute("inert");
+    document.querySelector("footer")?.removeAttribute("inert");
 
     menu.addEventListener(
       "transitionend",
@@ -173,6 +260,8 @@ interface Props {}
       },
       { once: true },
     );
+
+    document.removeEventListener("keydown", handleFocusTrap);
   }
 
   toggle?.addEventListener("click", () => {
@@ -182,6 +271,16 @@ interface Props {}
     } else {
       openMenu();
     }
+  });
+
+  closeBtn?.addEventListener("click", () => {
+    closeMenu();
+    toggle?.focus();
+  });
+
+  overlay?.addEventListener("click", () => {
+    closeMenu();
+    toggle?.focus();
   });
 
   document.addEventListener("keydown", (e) => {
@@ -198,23 +297,5 @@ interface Props {}
     link.addEventListener("click", () => {
       closeMenu();
     });
-  });
-
-  document.addEventListener("click", (e) => {
-    if (
-      toggle?.getAttribute("aria-expanded") === "true" &&
-      !header?.contains(e.target as Node)
-    ) {
-      closeMenu();
-    }
-  });
-
-  document.addEventListener("focusin", (e) => {
-    if (
-      toggle?.getAttribute("aria-expanded") === "true" &&
-      !header?.contains(e.target as Node)
-    ) {
-      closeMenu();
-    }
   });
 </script>
