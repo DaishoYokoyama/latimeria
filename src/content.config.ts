@@ -15,6 +15,63 @@ const imagePositionValues = [
 
 const imageFitValues = ["contain", "cover"] as const;
 
+const news = defineCollection({
+  loader: async () => {
+    const GOOGLE_SHEET_ID = import.meta.env.GOOGLE_SHEET_ID;
+
+    if (!GOOGLE_SHEET_ID) {
+      throw new Error(
+        "GOOGLE_SHEET_ID environment variable is not set. Add it to .env file.",
+      );
+    }
+
+    const gvizUrl = `https://docs.google.com/spreadsheets/d/${GOOGLE_SHEET_ID}/gviz/tq?tqx=out:json`;
+    const response = await fetch(gvizUrl);
+
+    if (!response.ok) {
+      throw new Error(
+        `Failed to fetch Google Spreadsheet (HTTP ${response.status}). ` +
+          `Ensure the spreadsheet is shared as "Anyone with the link can view".`,
+      );
+    }
+
+    const text = await response.text();
+    // gviz response is JSONP: google.visualization.Query.setResponse({...})
+    const jsonString = text.replace(
+      /^[\s\S]*?google\.visualization\.Query\.setResponse\(([\s\S]*)\);?\s*$/,
+      "$1",
+    );
+    const data = JSON.parse(jsonString);
+
+    // data.table.cols: column definitions
+    // data.table.rows: row data
+    const cols = data.table.cols.map((col: { label: string }) => col.label);
+    const titleIdx = cols.indexOf("title");
+    const dateIdx = cols.indexOf("date");
+    const contentIdx = cols.indexOf("content");
+
+    if (titleIdx === -1 || dateIdx === -1 || contentIdx === -1) {
+      throw new Error(
+        `Spreadsheet must have columns: title, date, content. Found: ${cols.join(", ")}`,
+      );
+    }
+
+    return data.table.rows.map(
+      (row: { c: ({ v: string } | null)[] }, index: number) => ({
+        id: String(index),
+        title: row.c[titleIdx]?.v ?? "",
+        date: row.c[dateIdx]?.v ?? "",
+        content: row.c[contentIdx]?.v ?? "",
+      }),
+    );
+  },
+  schema: z.object({
+    title: z.string(),
+    date: z.string(),
+    content: z.string(),
+  }),
+});
+
 const works = defineCollection({
   loader: glob({ pattern: "**/index.md", base: "./src/content/works" }),
   schema: ({ image }) =>
@@ -28,4 +85,4 @@ const works = defineCollection({
     }),
 });
 
-export const collections = { works };
+export const collections = { works, news };
