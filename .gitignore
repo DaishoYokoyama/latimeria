@@ -25,3 +25,6 @@ pnpm-debug.log*
 
 # order files
 orders/
+
+# plans
+plans/
