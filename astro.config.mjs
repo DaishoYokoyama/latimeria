@@ -14,6 +14,10 @@ export default defineConfig({
         context: "server",
         access: "public",
       }),
+      PUBLIC_GAS_ENDPOINT: envField.string({
+        context: "client",
+        access: "public",
+      }),
     },
   },
 });
