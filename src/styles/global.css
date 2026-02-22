@@ -22,6 +22,9 @@
 
   --color-border: #1e3a5c;
 
+  --color-error: #ef4444;
+  --color-error-light: #fca5a5;
+
   --font-size-heading-1: 1.5rem;
   --font-size-heading-1--line-height: 1.2;
   --font-size-heading-2: 1.25rem;
