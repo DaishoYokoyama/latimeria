@@ -23,57 +23,57 @@ Layer 3: CSS Custom Properties (:root)  — --sem-* variables (change here for m
 
 #### Background (deep-sea gradient, 4 levels)
 
-| Token | Hex | Usage | Tailwind class example |
-|-------|-----|-------|------------------------|
-| `abyss` | `#060d18` | Deepest — page background | `bg-abyss` |
-| `deep` | `#0b1628` | Main background | `bg-deep` |
-| `ocean` | `#101e32` | Alternating section background | `bg-ocean` |
-| `surface` | `#162d4a` | Card / UI element background | `bg-surface` |
+| Token     | Hex       | Usage                          | Tailwind class example |
+| --------- | --------- | ------------------------------ | ---------------------- |
+| `abyss`   | `#060d18` | Deepest — page background      | `bg-abyss`             |
+| `deep`    | `#0b1628` | Main background                | `bg-deep`              |
+| `ocean`   | `#101e32` | Alternating section background | `bg-ocean`             |
+| `surface` | `#162d4a` | Card / UI element background   | `bg-surface`           |
 
 #### Brand (teal from logo)
 
-| Token | Hex | Usage | Tailwind class example |
-|-------|-----|-------|------------------------|
-| `primary` | `#0891b2` | Main brand color | `text-primary` |
-| `primary-light` | `#22d3ee` | Hover / highlight | `text-primary-light` |
-| `primary-dark` | `#0e7490` | Pressed / darker accent | `text-primary-dark` |
+| Token           | Hex       | Usage                   | Tailwind class example |
+| --------------- | --------- | ----------------------- | ---------------------- |
+| `primary`       | `#0891b2` | Main brand color        | `text-primary`         |
+| `primary-light` | `#22d3ee` | Hover / highlight       | `text-primary-light`   |
+| `primary-dark`  | `#0e7490` | Pressed / darker accent | `text-primary-dark`    |
 
 #### Accent
 
-| Token | Hex | Usage | Tailwind class example |
-|-------|-----|-------|------------------------|
-| `accent` | `#06b6d4` | CTA buttons / attention | `bg-accent` |
-| `accent-light` | `#67e8f9` | Accent hover state | `bg-accent-light` |
+| Token          | Hex       | Usage                   | Tailwind class example |
+| -------------- | --------- | ----------------------- | ---------------------- |
+| `accent`       | `#06b6d4` | CTA buttons / attention | `bg-accent`            |
+| `accent-light` | `#67e8f9` | Accent hover state      | `bg-accent-light`      |
 
 #### Text
 
-| Token | Hex | Usage | Tailwind class example |
-|-------|-----|-------|------------------------|
-| `foreground` | `#e2e8f0` | Body text | `text-foreground` |
-| `muted` | `#94a3b8` | Secondary text / captions | `text-muted` |
+| Token        | Hex       | Usage                     | Tailwind class example |
+| ------------ | --------- | ------------------------- | ---------------------- |
+| `foreground` | `#e2e8f0` | Body text                 | `text-foreground`      |
+| `muted`      | `#94a3b8` | Secondary text / captions | `text-muted`           |
 
 #### UI
 
-| Token | Hex | Usage | Tailwind class example |
-|-------|-----|-------|------------------------|
-| `border` | `#1e3a5c` | Borders / dividers | `border-border` |
+| Token    | Hex       | Usage              | Tailwind class example |
+| -------- | --------- | ------------------ | ---------------------- |
+| `border` | `#1e3a5c` | Borders / dividers | `border-border`        |
 
 ### Layer 2: Semantic Tokens
 
-| Tailwind class | Usage | Dark value |
-|---|---|---|
-| `bg-canvas` | Main background | `#0b1628` (deep) |
-| `bg-canvas-alt` | Alternating section background | `#060d18` (abyss) |
-| `bg-elevated` | Cards / panels | `#162d4a` (surface) |
-| `bg-overlay` | Overlays / sidebars | `#101e32` (ocean) |
-| `text-body` | Body text | `#e2e8f0` (foreground) |
-| `text-body-secondary` | Secondary text | `#94a3b8` (muted) |
-| `text-heading` | Headings | `#f1f5f9` |
-| `text-link` / `hover:text-link-hover` | Links | `#0891b2` / `#22d3ee` |
-| `bg-interactive` / `hover:bg-interactive-hover` | CTA buttons | `#06b6d4` / `#67e8f9` |
-| `border-default` | Standard borders | `#1e3a5c` (border) |
-| `border-subtle` | Subtle borders | `#0f2744` |
-| `ring-focus` | Focus ring | `#22d3ee` |
+| Tailwind class                                  | Usage                          | Dark value             |
+| ----------------------------------------------- | ------------------------------ | ---------------------- |
+| `bg-canvas`                                     | Main background                | `#0b1628` (deep)       |
+| `bg-canvas-alt`                                 | Alternating section background | `#060d18` (abyss)      |
+| `bg-elevated`                                   | Cards / panels                 | `#162d4a` (surface)    |
+| `bg-overlay`                                    | Overlays / sidebars            | `#101e32` (ocean)      |
+| `text-body`                                     | Body text                      | `#e2e8f0` (foreground) |
+| `text-body-secondary`                           | Secondary text                 | `#94a3b8` (muted)      |
+| `text-heading`                                  | Headings                       | `#f1f5f9`              |
+| `text-link` / `hover:text-link-hover`           | Links                          | `#0891b2` / `#22d3ee`  |
+| `bg-interactive` / `hover:bg-interactive-hover` | CTA buttons                    | `#06b6d4` / `#67e8f9`  |
+| `border-default`                                | Standard borders               | `#1e3a5c` (border)     |
+| `border-subtle`                                 | Subtle borders                 | `#0f2744`              |
+| `ring-focus`                                    | Focus ring                     | `#22d3ee`              |
 
 ### Contrast Ratios (WCAG AA)
 
@@ -102,55 +102,59 @@ To enable light mode, add a `:root.light` block in `global.css` that overrides t
 
 Font family is TBD. The scale below defines size, weight, line-height, and letter-spacing tokens.
 
-| Token | Size | Weight | Line-height | Letter-spacing | Usage |
-|---|---|---|---|---|---|
-| `heading-1` | 24px → 36px (md) | 700 (bold) | 1.2 | -0.02em (tight) | Page title (h1) |
-| `heading-2` | 20px → 24px (md) | 700 (bold) | 1.3 | -0.01em (snug) | Section heading (h2) |
-| `heading-3` | 18px → 20px (md) | 600 (semibold) | 1.4 | 0 | Sub-section heading (h3) |
-| `heading-4` | 16px | 600 (semibold) | 1.5 | 0 | Card heading, small heading (h4) |
-| `body-large` | 16px | 400 (normal) | 1.75 | 0 | Lead paragraph, emphasized body |
-| `body-std` | 14px | 400 (normal) | 1.75 | 0 | Default body text |
-| `caption` | 12px | 400 (normal) | 1.5 | 0.01em (wide) | Captions, supplementary text |
-| `label` | 12px | 600 (semibold) | 1.5 | 0.02em (wider) | Form labels, tags, badges |
-| `fine` | 10px | 600 (semibold) | 1.4 | 0.02em (wider) | Fine print (limited use) |
+| Token        | Size             | Weight         | Line-height | Letter-spacing  | Usage                            |
+| ------------ | ---------------- | -------------- | ----------- | --------------- | -------------------------------- |
+| `heading-1`  | 24px → 36px (md) | 700 (bold)     | 1.2         | -0.02em (tight) | Page title (h1)                  |
+| `heading-2`  | 20px → 24px (md) | 700 (bold)     | 1.3         | -0.01em (snug)  | Section heading (h2)             |
+| `heading-3`  | 18px → 20px (md) | 600 (semibold) | 1.4         | 0               | Sub-section heading (h3)         |
+| `heading-4`  | 16px             | 600 (semibold) | 1.5         | 0               | Card heading, small heading (h4) |
+| `body-large` | 16px             | 400 (normal)   | 1.75        | 0               | Lead paragraph, emphasized body  |
+| `body-std`   | 14px             | 400 (normal)   | 1.75        | 0               | Default body text                |
+| `caption`    | 12px             | 400 (normal)   | 1.5         | 0.01em (wide)   | Captions, supplementary text     |
+| `label`      | 12px             | 600 (semibold) | 1.5         | 0.02em (wider)  | Form labels, tags, badges        |
+| `fine`       | 10px             | 600 (semibold) | 1.4         | 0.02em (wider)  | Fine print (limited use)         |
 
 ### Usage in Tailwind Classes
 
 Custom font-size tokens are defined in `@theme` inside `global.css` and generate utility classes:
 
-| Tailwind class | Size | Notes |
-|---|---|---|
-| `text-heading-1` | 24px | Use with `md:text-4xl` for responsive |
-| `text-heading-2` | 20px | Use with `md:text-2xl` for responsive |
-| `text-heading-3` | 18px | Use with `md:text-xl` for responsive |
-| `text-heading-4` | 16px | No responsive scaling needed |
-| `text-body-large` | 16px | Lead paragraphs |
-| `text-body-std` | 14px | Default body (set on `<body>`) |
-| `text-caption` | 12px | Dates, secondary info |
-| `text-label` | 12px | Form labels (pair with `font-semibold`) |
-| `text-fine` | 10px | Use sparingly; minimum readable size |
+| Tailwind class    | Size | Notes                                   |
+| ----------------- | ---- | --------------------------------------- |
+| `text-heading-1`  | 24px | Use with `md:text-4xl` for responsive   |
+| `text-heading-2`  | 20px | Use with `md:text-2xl` for responsive   |
+| `text-heading-3`  | 18px | Use with `md:text-xl` for responsive    |
+| `text-heading-4`  | 16px | No responsive scaling needed            |
+| `text-body-large` | 16px | Lead paragraphs                         |
+| `text-body-std`   | 14px | Default body (set on `<body>`)          |
+| `text-caption`    | 12px | Dates, secondary info                   |
+| `text-label`      | 12px | Form labels (pair with `font-semibold`) |
+| `text-fine`       | 10px | Use sparingly; minimum readable size    |
 
 ### Responsive Heading Pattern
 
 Headings use mobile-first custom tokens, scaling up with Tailwind built-in classes at `md:` breakpoint:
 
 ```html
-<h1 class="text-heading-1 md:text-4xl font-bold tracking-tight text-heading">...</h1>
-<h2 class="text-heading-2 md:text-2xl font-bold tracking-snug text-heading">...</h2>
-<h3 class="text-heading-3 md:text-xl font-semibold text-heading">...</h3>
+<h1 class="text-heading-1 font-bold tracking-tight text-heading md:text-4xl">
+  ...
+</h1>
+<h2 class="text-heading-2 font-bold tracking-snug text-heading md:text-2xl">
+  ...
+</h2>
+<h3 class="text-heading-3 font-semibold text-heading md:text-xl">...</h3>
 ```
 
 ### Letter Spacing
 
 No custom letter-spacing tokens are defined. Use Tailwind built-in tracking utilities:
 
-| Tailwind class | Value | Usage |
-|---|---|---|
-| `tracking-tight` | -0.05em | h1 headings |
-| `tracking-snug` | -0.01em | h2 headings (custom, defined in `@theme`) |
-| `tracking-normal` | 0 | Default |
-| `tracking-wide` | 0.025em | Captions |
-| `tracking-wider` | 0.05em | Labels, fine print |
+| Tailwind class    | Value   | Usage                                     |
+| ----------------- | ------- | ----------------------------------------- |
+| `tracking-tight`  | -0.05em | h1 headings                               |
+| `tracking-snug`   | -0.01em | h2 headings (custom, defined in `@theme`) |
+| `tracking-normal` | 0       | Default                                   |
+| `tracking-wide`   | 0.025em | Captions                                  |
+| `tracking-wider`  | 0.05em  | Labels, fine print                        |
 
 ### Rules
 

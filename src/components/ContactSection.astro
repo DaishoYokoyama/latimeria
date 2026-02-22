@@ -4,12 +4,17 @@ interface Props {}
 
 <section id="contact" class="bg-canvas px-4 py-20 md:py-32 lg:px-8">
   <div class="mx-auto max-w-7xl">
-    <h2 class="text-heading-2 font-bold tracking-snug text-heading md:text-2xl">Contact</h2>
+    <h2 class="text-heading-2 font-bold tracking-snug text-heading md:text-2xl">
+      Contact
+    </h2>
     <p class="mt-2 text-body-secondary">お問い合わせ</p>
 
-    <form class="mt-10 mx-auto max-w-2xl md:mt-14">
+    <form class="mx-auto mt-10 max-w-2xl md:mt-14">
       <div class="flex flex-col gap-2">
-        <label for="contact-name" class="text-body-std font-semibold tracking-wider text-body">
+        <label
+          for="contact-name"
+          class="text-body-std font-semibold tracking-wider text-body"
+        >
           お名前 <span class="text-body-secondary">*</span>
         </label>
         <input
@@ -18,13 +23,16 @@ interface Props {}
           name="name"
           required
           autocomplete="name"
-          class="rounded-lg border border-default bg-overlay px-4 py-3 text-body placeholder:text-body-secondary focus:border-focus focus:ring-2 focus:ring-focus focus:outline-none transition-colors"
+          class="rounded-lg border border-default bg-overlay px-4 py-3 text-body transition-colors placeholder:text-body-secondary focus:border-focus focus:ring-2 focus:ring-focus focus:outline-none"
           placeholder="山田 太郎"
         />
       </div>
 
       <div class="mt-6 flex flex-col gap-2">
-        <label for="contact-email" class="text-body-std font-semibold tracking-wider text-body">
+        <label
+          for="contact-email"
+          class="text-body-std font-semibold tracking-wider text-body"
+        >
           メールアドレス <span class="text-body-secondary">*</span>
         </label>
         <input
@@ -33,13 +41,16 @@ interface Props {}
           name="email"
           required
           autocomplete="email"
-          class="rounded-lg border border-default bg-overlay px-4 py-3 text-body placeholder:text-body-secondary focus:border-focus focus:ring-2 focus:ring-focus focus:outline-none transition-colors"
+          class="rounded-lg border border-default bg-overlay px-4 py-3 text-body transition-colors placeholder:text-body-secondary focus:border-focus focus:ring-2 focus:ring-focus focus:outline-none"
           placeholder="example@email.com"
         />
       </div>
 
       <div class="mt-6 flex flex-col gap-2">
-        <label for="contact-subject" class="text-body-std font-semibold tracking-wider text-body">
+        <label
+          for="contact-subject"
+          class="text-body-std font-semibold tracking-wider text-body"
+        >
           件名 <span class="text-body-secondary">*</span>
         </label>
         <input
@@ -47,13 +58,16 @@ interface Props {}
           id="contact-subject"
           name="subject"
           required
-          class="rounded-lg border border-default bg-overlay px-4 py-3 text-body placeholder:text-body-secondary focus:border-focus focus:ring-2 focus:ring-focus focus:outline-none transition-colors"
+          class="rounded-lg border border-default bg-overlay px-4 py-3 text-body transition-colors placeholder:text-body-secondary focus:border-focus focus:ring-2 focus:ring-focus focus:outline-none"
           placeholder="お問い合わせの件名"
         />
       </div>
 
       <div class="mt-6 flex flex-col gap-2">
-        <label for="contact-message" class="text-body-std font-semibold tracking-wider text-body">
+        <label
+          for="contact-message"
+          class="text-body-std font-semibold tracking-wider text-body"
+        >
           メッセージ <span class="text-body-secondary">*</span>
         </label>
         <textarea
@@ -61,9 +75,8 @@ interface Props {}
           name="message"
           required
           rows="6"
-          class="rounded-lg border border-default bg-overlay px-4 py-3 text-body placeholder:text-body-secondary focus:border-focus focus:ring-2 focus:ring-focus focus:outline-none transition-colors resize-y"
-          placeholder="お問い合わせ内容をご記入ください"
-        ></textarea>
+          class="resize-y rounded-lg border border-default bg-overlay px-4 py-3 text-body transition-colors placeholder:text-body-secondary focus:border-focus focus:ring-2 focus:ring-focus focus:outline-none"
+          placeholder="お問い合わせ内容をご記入ください"></textarea>
       </div>
 
       <div class="mt-8">

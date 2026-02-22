@@ -7,12 +7,12 @@ Claude Code のサブエージェント（Task tool）を活用したチーム�
 
 ## Team Composition
 
-| Role | Responsibility | Sub-Agent Type |
-|------|---------------|----------------|
-| **Architect** | コンポーネント設計・Props 定義・レスポンシブ戦略の決定 | `Plan` |
-| **Implementer** | 設計に基づくコード実装 | `general-purpose` |
-| **Reviewer** | ガイドライン準拠チェック・アクセシビリティ検証 | `general-purpose` |
-| **Builder** | ビルド検証・出力確認 | `Bash` |
+| Role            | Responsibility                                         | Sub-Agent Type    |
+| --------------- | ------------------------------------------------------ | ----------------- |
+| **Architect**   | コンポーネント設計・Props 定義・レスポンシブ戦略の決定 | `Plan`            |
+| **Implementer** | 設計に基づくコード実装                                 | `general-purpose` |
+| **Reviewer**    | ガイドライン準拠チェック・アクセシビリティ検証         | `general-purpose` |
+| **Builder**     | ビルド検証・出力確認                                   | `Bash`            |
 
 > **Sub-Agent Directive**: All Task tool invocations must specify `model: "opus"`.
 
@@ -54,11 +54,11 @@ Architect は以下を決定する:
 
 **参照ドキュメント**:
 
-| Document | Purpose |
-|----------|---------|
-| [Requirements](requirements.md) | 機能要件・NFR の確認 |
+| Document                                  | Purpose                                        |
+| ----------------------------------------- | ---------------------------------------------- |
+| [Requirements](requirements.md)           | 機能要件・NFR の確認                           |
 | [Design Guidelines](design-guidelines.md) | カラートークン・スペーシング・レスポンシブ方針 |
-| [Coding Guidelines](coding-guidelines.md) | 命名規則・ディレクトリ構造 |
+| [Coding Guidelines](coding-guidelines.md) | 命名規則・ディレクトリ構造                     |
 
 **品質ゲート**: ユーザーが設計を承認すること。
 
@@ -77,11 +77,11 @@ Implementer は以下のルールを厳守する:
 
 **参照ドキュメント**:
 
-| Document | Purpose |
-|----------|---------|
+| Document                                  | Purpose                                        |
+| ----------------------------------------- | ---------------------------------------------- |
 | [Coding Guidelines](coding-guidelines.md) | スタイリングルール・命名規則・アクセシビリティ |
-| [Design Guidelines](design-guidelines.md) | カラートークン・スペーシング |
-| `src/styles/global.css` | 利用可能なトークン一覧 |
+| [Design Guidelines](design-guidelines.md) | カラートークン・スペーシング                   |
+| `src/styles/global.css`                   | 利用可能なトークン一覧                         |
 
 **並列化**: 互いに依存しないコンポーネントは複数の Implementer を同時実行できる。
 
@@ -122,10 +122,10 @@ Reviewer は以下の観点でチェックする:
 
 **参照ドキュメント**:
 
-| Document | Purpose |
-|----------|---------|
-| [CLAUDE.md](../CLAUDE.md) | DO / DO NOT ルール |
-| [Coding Guidelines](coding-guidelines.md) | 全コーディングルール |
+| Document                                  | Purpose                        |
+| ----------------------------------------- | ------------------------------ |
+| [CLAUDE.md](../CLAUDE.md)                 | DO / DO NOT ルール             |
+| [Coding Guidelines](coding-guidelines.md) | 全コーディングルール           |
 | [Design Guidelines](design-guidelines.md) | デザイントークンの正しい使用法 |
 
 **品質ゲート**: 違反ゼロ。違反がある場合は Implementer に差し戻し、修正後に再レビュー。
@@ -164,13 +164,13 @@ npm run build
 
 ### 振り返りの観点
 
-| Category | Question |
-|----------|----------|
-| **ガイドライン違反** | レビューで検出された違反パターンは何か？再発防止のためにルール化すべきか？ |
-| **設計判断** | Architect の判断で修正が必要だったものはあるか？設計パターンとして記録すべきか？ |
-| **実装パターン** | 繰り返し使われた実装パターンがあるか？共通コンポーネント化すべきか？ |
-| **プロセス改善** | チームプロセス自体に改善の余地はあるか？ |
-| **ドキュメント不足** | 既存ガイドラインに記載がなく判断に迷った点はあるか？ |
+| Category             | Question                                                                         |
+| -------------------- | -------------------------------------------------------------------------------- |
+| **ガイドライン違反** | レビューで検出された違反パターンは何か？再発防止のためにルール化すべきか？       |
+| **設計判断**         | Architect の判断で修正が必要だったものはあるか？設計パターンとして記録すべきか？ |
+| **実装パターン**     | 繰り返し使われた実装パターンがあるか？共通コンポーネント化すべきか？             |
+| **プロセス改善**     | チームプロセス自体に改善の余地はあるか？                                         |
+| **ドキュメント不足** | 既存ガイドラインに記載がなく判断に迷った点はあるか？                             |
 
 ### 振り返りの出力
 
@@ -183,13 +183,13 @@ npm run build
 
 ### 振り返りの対象ドキュメント
 
-| Document | 更新される内容 |
-|----------|-------------|
-| [Coding Guidelines](coding-guidelines.md) | コーディングルール・命名規則 |
-| [Design Guidelines](design-guidelines.md) | デザイントークン・レイアウトパターン |
-| [Git Rules](git-rules.md) | コミットルール |
-| [Requirements](requirements.md) | 要件の明確化・追加 |
-| **This document** | チームプロセスの改善・チェックリスト拡充 |
+| Document                                  | 更新される内容                           |
+| ----------------------------------------- | ---------------------------------------- |
+| [Coding Guidelines](coding-guidelines.md) | コーディングルール・命名規則             |
+| [Design Guidelines](design-guidelines.md) | デザイントークン・レイアウトパターン     |
+| [Git Rules](git-rules.md)                 | コミットルール                           |
+| [Requirements](requirements.md)           | 要件の明確化・追加                       |
+| **This document**                         | チームプロセスの改善・チェックリスト拡充 |
 
 ## Orchestrator Role
 
@@ -208,17 +208,18 @@ Orchestrator 自身はコードを直接書かず、サブエージェントに�
 
 以下のパターンを避けること:
 
-| Anti-Pattern | Why | Instead |
-|-------------|-----|---------|
-| 設計なしの実装開始 | 手戻りが多発する | 必ず Architect から始める |
-| レビュースキップ | ガイドライン違反が本番に残る | 全実装に Reviewer を通す |
-| 振り返りスキップ | 同じミスを繰り返す | 毎フィーチャー後に実施 |
-| 1 エージェントに全工程 | コンテキストが肥大化し品質低下 | 役割を分離する |
-| 依存コンポーネントの並列実装 | 整合性が取れない | 依存関係を先に解決する |
+| Anti-Pattern                 | Why                            | Instead                   |
+| ---------------------------- | ------------------------------ | ------------------------- |
+| 設計なしの実装開始           | 手戻りが多発する               | 必ず Architect から始める |
+| レビュースキップ             | ガイドライン違反が本番に残る   | 全実装に Reviewer を通す  |
+| 振り返りスキップ             | 同じミスを繰り返す             | 毎フィーチャー後に実施    |
+| 1 エージェントに全工程       | コンテキストが肥大化し品質低下 | 役割を分離する            |
+| 依存コンポーネントの並列実装 | 整合性が取れない               | 依存関係を先に解決する    |
 
 ## Lessons Learned
 
 <!-- Add rules discovered through retrospectives below -->
+
 - 軽微なリファクタリング（クラス名の一括置換等）では Architect エージェントを省略し、プランが Architect の役割を兼ねてよい。ただし変更対象・変更前後の値を明確にプランに記載すること。
 - Reviewer / Builder が軽微な場合（チェックリストの確認のみ、ビルドコマンド実行のみ）は lead が直接実施してよい。エージェント起動のオーバーヘッドを避ける。
 - Implementer に渡す指示は「ファイルパス + 行番号 + 変更前 → 変更後」の形式が最も正確。曖昧な指示は誤実装の原因になる。

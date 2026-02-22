@@ -11,10 +11,10 @@
 
 > TBD — Define pages and their content sections.
 
-| Page | Path | Status |
-|------|------|--------|
-| Home | `/` | Scaffold exists |
-| (TBD) | — | — |
+| Page  | Path | Status          |
+| ----- | ---- | --------------- |
+| Home  | `/`  | Scaffold exists |
+| (TBD) | —    | —               |
 
 ## Non-Functional Requirements
 

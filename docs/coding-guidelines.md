@@ -46,5 +46,6 @@ src/
 ## Lessons Learned
 
 <!-- Add rules discovered through code review and corrections below -->
+
 - Tailwind ビルトインに存在しないユーティリティクラス（例: `tracking-snug`）を使用する場合は、`global.css` の `@theme` に定義が必要。ビルドはエラーにならず無視されるだけなので発見が遅れる。新しいクラス名を導入する際は `@theme` 定義の有無を必ず確認すること。
 - タイポグラフィトークン適用時は `font-size` だけでなく `font-weight` と `letter-spacing` もセットで置き換える。トークンの `--font-size-*` は weight を含まないため、必ず `font-bold` / `font-semibold` を明示的に指定する。

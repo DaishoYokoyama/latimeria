@@ -1,12 +1,15 @@
 ---
-import { Image } from 'astro:assets';
-import logo from '../assets/logo.png';
-import heroBg from '../assets/hero-bg.png';
+import { Image } from "astro:assets";
+import logo from "../assets/logo.png";
+import heroBg from "../assets/hero-bg.png";
 
 interface Props {}
 ---
 
-<section id="hero" class="relative min-h-svh flex items-center justify-center overflow-hidden">
+<section
+  id="hero"
+  class="relative flex min-h-svh items-center justify-center overflow-hidden"
+>
   <Image
     src={heroBg}
     alt=""
@@ -16,14 +19,17 @@ interface Props {}
     sizes="100vw"
   />
 
-  <div class="absolute inset-0 bg-linear-to-b from-abyss/70 via-transparent to-abyss"></div>
+  <div
+    class="absolute inset-0 bg-linear-to-b from-abyss/70 via-transparent to-abyss"
+  >
+  </div>
 
   <div class="relative z-10 flex flex-col items-center">
     <h1 class="sr-only">Latimeria</h1>
     <Image
       src={logo}
       alt="Latimeria ラティメリア"
-      class="w-48 md:w-64 lg:w-80 h-auto drop-shadow-[0_0_40px_rgba(8,145,178,0.3)]"
+      class="h-auto w-48 drop-shadow-[0_0_40px_rgba(8,145,178,0.3)] md:w-64 lg:w-80"
     />
   </div>
 </section>

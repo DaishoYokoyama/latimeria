@@ -1,13 +1,13 @@
 ---
-import { Image } from 'astro:assets';
-import logo from '../assets/logo.png';
+import { Image } from "astro:assets";
+import logo from "../assets/logo.png";
 
 interface Props {}
 ---
 
 <header
   id="site-header"
-  class="fixed top-0 left-0 w-full z-50 transition-[background-color,backdrop-filter] duration-300 data-scrolled:bg-deep/80 data-scrolled:backdrop-blur-xs"
+  class="fixed top-0 left-0 z-50 w-full transition-[background-color,backdrop-filter] duration-300 data-scrolled:bg-deep/80 data-scrolled:backdrop-blur-xs"
   data-header
 >
   <nav
@@ -16,40 +16,39 @@ interface Props {}
   >
     <a
       href="/"
-      class="shrink-0 opacity-0 pointer-events-none transition-opacity duration-300 data-visible:opacity-100 data-visible:pointer-events-auto"
+      class="pointer-events-none shrink-0 opacity-0 transition-opacity duration-300 data-visible:pointer-events-auto data-visible:opacity-100"
       data-header-logo
     >
-      <Image
-        src={logo}
-        alt="Latimeria ホーム"
-        class="h-10 w-auto md:h-12"
-      />
+      <Image src={logo} alt="Latimeria ホーム" class="h-10 w-auto md:h-12" />
     </a>
 
     <ul class="hidden md:flex md:gap-6 lg:gap-8" role="list">
       <li>
         <a
           href="#works"
-          class="text-body-std lg:text-body-large text-body hover:text-link-hover transition-colors"
-        >Works</a>
+          class="text-body-std lg:text-body-large text-body transition-colors hover:text-link-hover"
+          >Works</a
+        >
       </li>
       <li>
         <a
           href="#news"
-          class="text-body-std lg:text-body-large text-body hover:text-link-hover transition-colors"
-        >News</a>
+          class="text-body-std lg:text-body-large text-body transition-colors hover:text-link-hover"
+          >News</a
+        >
       </li>
       <li>
         <a
           href="#contact"
-          class="text-body-std lg:text-body-large text-body hover:text-link-hover transition-colors"
-        >Contact</a>
+          class="text-body-std lg:text-body-large text-body transition-colors hover:text-link-hover"
+          >Contact</a
+        >
       </li>
     </ul>
 
     <button
       type="button"
-      class="md:hidden p-2 text-body hover:text-link-hover transition-colors"
+      class="p-2 text-body transition-colors hover:text-link-hover md:hidden"
       aria-expanded="false"
       aria-controls="mobile-menu"
       aria-label="メニューを開く"
@@ -64,10 +63,16 @@ interface Props {}
         aria-hidden="true"
       >
         <g data-hamburger-icon class="transition-opacity duration-300">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"></path>
         </g>
         <g data-close-icon class="opacity-0 transition-opacity duration-300">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M6 18L18 6M6 6l12 12"></path>
         </g>
       </svg>
     </button>
@@ -75,80 +80,86 @@ interface Props {}
 
   <div
     id="mobile-menu"
-    class="md:hidden border-t border-subtle bg-deep/80 backdrop-blur-md overflow-hidden max-h-0 opacity-0 transition-all duration-300 ease-in-out"
+    class="max-h-0 overflow-hidden border-t border-subtle bg-deep/80 opacity-0 backdrop-blur-md transition-all duration-300 ease-in-out md:hidden"
     data-mobile-menu
   >
     <ul class="flex flex-col px-4 py-2" role="list">
       <li>
         <a
           href="#works"
-          class="block py-3 text-body-large text-body hover:text-link-hover transition-colors"
-        >Works</a>
+          class="text-body-large block py-3 text-body transition-colors hover:text-link-hover"
+          >Works</a
+        >
       </li>
       <li>
         <a
           href="#news"
-          class="block py-3 text-body-large text-body hover:text-link-hover transition-colors"
-        >News</a>
+          class="text-body-large block py-3 text-body transition-colors hover:text-link-hover"
+          >News</a
+        >
       </li>
       <li>
         <a
           href="#contact"
-          class="block py-3 text-body-large text-body hover:text-link-hover transition-colors"
-        >Contact</a>
+          class="text-body-large block py-3 text-body transition-colors hover:text-link-hover"
+          >Contact</a
+        >
       </li>
     </ul>
   </div>
 </header>
 
 <script>
-  const header = document.querySelector<HTMLElement>('[data-header]');
-  const heroSection = document.querySelector<HTMLElement>('#hero');
-  const headerLogo = document.querySelector<HTMLElement>('[data-header-logo]');
+  const header = document.querySelector<HTMLElement>("[data-header]");
+  const heroSection = document.querySelector<HTMLElement>("#hero");
+  const headerLogo = document.querySelector<HTMLElement>("[data-header-logo]");
 
   if (header && heroSection) {
     const observer = new IntersectionObserver(
       ([entry]) => {
         const scrolled = !entry.isIntersecting;
-        header.toggleAttribute('data-scrolled', scrolled);
-        headerLogo?.toggleAttribute('data-visible', scrolled);
+        header.toggleAttribute("data-scrolled", scrolled);
+        headerLogo?.toggleAttribute("data-visible", scrolled);
       },
-      { threshold: 0 }
+      { threshold: 0 },
     );
     observer.observe(heroSection);
   }
 
-  const toggle = document.querySelector<HTMLButtonElement>('[data-menu-toggle]');
-  const menu = document.querySelector<HTMLElement>('[data-mobile-menu]');
-  const hamburgerIcon = document.querySelector<SVGGElement>('[data-hamburger-icon]');
-  const closeIcon = document.querySelector<SVGGElement>('[data-close-icon]');
+  const toggle =
+    document.querySelector<HTMLButtonElement>("[data-menu-toggle]");
+  const menu = document.querySelector<HTMLElement>("[data-mobile-menu]");
+  const hamburgerIcon = document.querySelector<SVGGElement>(
+    "[data-hamburger-icon]",
+  );
+  const closeIcon = document.querySelector<SVGGElement>("[data-close-icon]");
 
   function openMenu() {
     if (!toggle || !menu || !hamburgerIcon || !closeIcon) return;
-    toggle.setAttribute('aria-expanded', 'true');
-    toggle.setAttribute('aria-label', 'メニューを閉じる');
-    menu.classList.remove('max-h-0', 'opacity-0');
-    menu.classList.add('max-h-60', 'opacity-100');
-    hamburgerIcon.classList.add('opacity-0');
-    hamburgerIcon.classList.remove('opacity-100');
-    closeIcon.classList.remove('opacity-0');
-    closeIcon.classList.add('opacity-100');
+    toggle.setAttribute("aria-expanded", "true");
+    toggle.setAttribute("aria-label", "メニューを閉じる");
+    menu.classList.remove("max-h-0", "opacity-0");
+    menu.classList.add("max-h-60", "opacity-100");
+    hamburgerIcon.classList.add("opacity-0");
+    hamburgerIcon.classList.remove("opacity-100");
+    closeIcon.classList.remove("opacity-0");
+    closeIcon.classList.add("opacity-100");
   }
 
   function closeMenu() {
     if (!toggle || !menu || !hamburgerIcon || !closeIcon) return;
-    toggle.setAttribute('aria-expanded', 'false');
-    toggle.setAttribute('aria-label', 'メニューを開く');
-    menu.classList.add('max-h-0', 'opacity-0');
-    menu.classList.remove('max-h-60', 'opacity-100');
-    hamburgerIcon.classList.remove('opacity-0');
-    hamburgerIcon.classList.add('opacity-100');
-    closeIcon.classList.add('opacity-0');
-    closeIcon.classList.remove('opacity-100');
+    toggle.setAttribute("aria-expanded", "false");
+    toggle.setAttribute("aria-label", "メニューを開く");
+    menu.classList.add("max-h-0", "opacity-0");
+    menu.classList.remove("max-h-60", "opacity-100");
+    hamburgerIcon.classList.remove("opacity-0");
+    hamburgerIcon.classList.add("opacity-100");
+    closeIcon.classList.add("opacity-0");
+    closeIcon.classList.remove("opacity-100");
   }
 
-  toggle?.addEventListener('click', () => {
-    const isOpen = toggle.getAttribute('aria-expanded') === 'true';
+  toggle?.addEventListener("click", () => {
+    const isOpen = toggle.getAttribute("aria-expanded") === "true";
     if (isOpen) {
       closeMenu();
     } else {
@@ -156,15 +167,18 @@ interface Props {}
     }
   });
 
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && toggle?.getAttribute('aria-expanded') === 'true') {
+  document.addEventListener("keydown", (e) => {
+    if (
+      e.key === "Escape" &&
+      toggle?.getAttribute("aria-expanded") === "true"
+    ) {
       closeMenu();
       toggle.focus();
     }
   });
 
-  menu?.querySelectorAll('a').forEach((link) => {
-    link.addEventListener('click', () => {
+  menu?.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", () => {
       closeMenu();
     });
   });
